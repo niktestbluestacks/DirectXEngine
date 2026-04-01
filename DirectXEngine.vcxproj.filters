@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="DX3D">
+      <UniqueIdentifier>{9cd715be-8370-4e82-bdce-09d81ac72930}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain">
+      <UniqueIdentifier>{c568fae2-467d-418a-b53d-9e9b8fddc214}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\Include">
+      <UniqueIdentifier>{9b6718d6-2409-47c6-93e6-2f2e2f305bf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\Source">
+      <UniqueIdentifier>{86715161-1fe5-469f-bf69-d182804fb2c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass">
+      <UniqueIdentifier>{ad756e3c-b66d-4404-adb9-52a108e7c7c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\InputClass">
+      <UniqueIdentifier>{bd329602-a71e-4278-95f3-38ffa42e6379}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass">
+      <UniqueIdentifier>{675582af-9237-4518-bc4a-b2e39d034fc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\D3DClass">
+      <UniqueIdentifier>{4238fb03-4578-42fc-9a54-cdc0a8db7902}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ModelClass">
+      <UniqueIdentifier>{11a36bde-a704-4cf8-8188-307d8b60764a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\CameraClass">
+      <UniqueIdentifier>{2a5e94ae-6dca-4bee-bbbc-e823b84f0d93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ColorShaderClass">
+      <UniqueIdentifier>{a19ff6f4-c202-4251-a9ff-359e6468482d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\Shaders">
+      <UniqueIdentifier>{838e0bd2-f11d-47db-b633-d6d335159189}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\TextureShaderClass">
+      <UniqueIdentifier>{0465fdeb-6a63-4164-b632-78549aa53472}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ModelClass\TextureClass">
+      <UniqueIdentifier>{e05f7120-2eb6-4c30-ba3d-2b396e0f36d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\HelpfulMacros">
+      <UniqueIdentifier>{b8cdf5d5-d09e-41b2-ba07-52a7cd452fdc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>DX3D\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass</Filter>
+    </ClCompile>
+    <ClCompile Include="InputClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\InputClass</Filter>
+    </ClCompile>
+    <ClCompile Include="ApplicationClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass</Filter>
+    </ClCompile>
+    <ClCompile Include="D3DClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\D3DClass</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ModelClass</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\CameraClass</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureShaderClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\TextureShaderClass</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ModelClass\TextureClass</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SysteamClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass</Filter>
+    </ClInclude>
+    <ClInclude Include="InputClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\InputClass</Filter>
+    </ClInclude>
+    <ClInclude Include="ApplicationClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass</Filter>
+    </ClInclude>
+    <ClInclude Include="D3DClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\D3DClass</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ModelClass</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\CameraClass</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureShaderClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\TextureShaderClass</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ModelClass\TextureClass</Filter>
+    </ClInclude>
+    <ClInclude Include="MyConverter.hpp">
+      <Filter>DX3D\HelpfulMacros</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="colorps.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ColorShaderClass</Filter>
+    </None>
+    <None Include="colorvs.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ColorShaderClass</Filter>
+    </None>
+    <None Include="texturevs.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ColorShaderClass</Filter>
+    </None>
+    <None Include="textureps.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ColorShaderClass</Filter>
+    </None>
+    <None Include="ColorShaderClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ColorShaderClass</Filter>
+    </None>
+    <None Include="ColorShaderClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ColorShaderClass</Filter>
+    </None>
+  </ItemGroup>
+</Project>
