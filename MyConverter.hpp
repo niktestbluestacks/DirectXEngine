@@ -11,13 +11,9 @@
 
 // namespace MyConverter
 namespace MyConverter {
-	std::unique_ptr <const std::wstring> constCharPtrPathToWstring(const char* str) {
-		const std::filesystem::path StrPath = str;
-		std::string StrPathToStr = std::filesystem::absolute(StrPath).string();
-		std::replace(StrPathToStr.begin(), StrPathToStr.end(), '\\', '/');
-		const std::wstring WStrPathToStr = std::wstring(StrPathToStr.begin(), StrPathToStr.end());
-		return std::make_unique <const std::wstring>(WStrPathToStr);
-	}
+	std::unique_ptr <const std::wstring> constCharPtrPathToWstring(const char* str);
+
+	std::unique_ptr <const std::string> constCharPtrPathToString(const char* str);
 }
 
 #endif // _MYCONVERTER_HPP_

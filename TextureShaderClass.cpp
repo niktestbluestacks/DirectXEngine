@@ -16,12 +16,10 @@ TextureShaderClass::TextureShaderClass() {
 }
 
 
-TextureShaderClass::TextureShaderClass(const TextureShaderClass& other) {
-}
+TextureShaderClass::TextureShaderClass(const TextureShaderClass& other) {}
 
 
-TextureShaderClass::~TextureShaderClass() {
-}
+TextureShaderClass::~TextureShaderClass() {}
 
 /*std::unique_ptr <const std::wstring> constCharPtrPathToWstring(const char* str) {
 	const std::filesystem::path StrPath = str;

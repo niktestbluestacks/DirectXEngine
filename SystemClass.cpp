@@ -123,7 +123,7 @@ void SystemClass::InitializeWindows(int& screenWidth, int& screenHeight) {
 	ApplicationHandle = this;
 
 	// Get the instance of this application.
-	m_hinstance = GetModuleHandle(NULL);
+	m_hinstance = GetModuleHandle(nullptr);
 
 	// Give the application a name.
 	m_applicationName = L"Engine";
@@ -133,11 +133,11 @@ void SystemClass::InitializeWindows(int& screenWidth, int& screenHeight) {
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
 	wc.hInstance = m_hinstance;
-	wc.hIcon = LoadIcon(NULL, IDI_WINLOGO);
+	wc.hIcon = LoadIcon(nullptr, IDI_WINLOGO);
 	wc.hIconSm = wc.hIcon;
-	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wc.hCursor = LoadCursor(nullptr, IDC_ARROW);
 	wc.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
-	wc.lpszMenuName = NULL;
+	wc.lpszMenuName = nullptr;
 	wc.lpszClassName = m_applicationName;
 	wc.cbSize = sizeof(WNDCLASSEX);
 
@@ -170,7 +170,7 @@ void SystemClass::InitializeWindows(int& screenWidth, int& screenHeight) {
 
 	m_hwnd = CreateWindowEx(WS_EX_APPWINDOW, m_applicationName, m_applicationName,
 		WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_POPUP,
-		posX, posY, screenWidth, screenHeight, NULL, NULL, m_hinstance, NULL);
+		posX, posY, screenWidth, screenHeight, nullptr, nullptr, m_hinstance, nullptr);
 
 	ShowWindow(m_hwnd, SW_SHOW);
 	SetForegroundWindow(m_hwnd);

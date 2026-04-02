@@ -6,7 +6,8 @@
 #include "D3DClass.hpp"
 #include "CameraClass.hpp"
 #include "ModelClass.hpp"
-#include "TextureShaderClass.hpp"
+#include "LightShaderClass.hpp"
+#include "LightClass.hpp"
 
 // Global constants.
 const bool FULL_SCREEN = false;
@@ -26,13 +27,15 @@ public:
 	void Shutdown();
 	bool Frame();
 private:
-	bool Render();
+	bool Render(float);
 private:
 	D3DClass* m_Direct3D;
 	CameraClass* m_Camera;
 	ModelClass* m_Model;
 	//ColorShaderClass* m_ColorShader;
-	TextureShaderClass* m_TextureShader;
+	//TextureShaderClass* m_TextureShader;
+	LightShaderClass* m_LightShader;
+	LightClass* m_Light;
 };
 #endif // _APPLICATIONCLASS_HPP_
 

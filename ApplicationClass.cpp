@@ -1,4 +1,5 @@
 #include "ApplicationClass.hpp"
+#include "MyConverter.hpp"
 
 using namespace DirectX;
 
@@ -6,16 +7,15 @@ ApplicationClass::ApplicationClass() {
 	m_Direct3D = nullptr;
 	m_Camera = nullptr;
 	m_Model = nullptr;
-	m_TextureShader = nullptr;
+	m_LightShader = nullptr;
+	m_Light = nullptr;
 }
 
 
-ApplicationClass::ApplicationClass(const ApplicationClass& other) {
-}
+ApplicationClass::ApplicationClass(const ApplicationClass& other) {}
 
 
-ApplicationClass::~ApplicationClass() {
-}
+ApplicationClass::~ApplicationClass() {}
 
 bool ApplicationClass::Initialize(int screenWidth, int screenHeight, HWND hwnd) {
 	bool result;
@@ -33,29 +33,40 @@ bool ApplicationClass::Initialize(int screenWidth, int screenHeight, HWND hwnd) 
 
 	m_Model = new ModelClass;
 
-	strcpy_s(textureFilename, "../DirectXEngine/TestingTextures/stone01.tga");
+	auto textureStr = MyConverter::constCharPtrPathToString("../DirectXEngine/TestingTextures/stone01.tga");
+	auto textureCStr = textureStr->c_str();
+	strcpy_s(textureFilename, 128, textureCStr);
+	textureStr.reset();
 	result = m_Model->Initialize(m_Direct3D->GetDevice(), m_Direct3D->GetDeviceContext(), textureFilename);
 	if (!result) {
 		MessageBox(hwnd, L"Could not initialize the model object.", L"Error", MB_OK);
 		return false;
 	}
 
-	m_TextureShader = new TextureShaderClass;
+	m_LightShader = new LightShaderClass;
 
-	result = m_TextureShader->Initialize(m_Direct3D->GetDevice(), hwnd);
+	result = m_LightShader->Initialize(m_Direct3D->GetDevice(), hwnd);
 	if (!result) {
 		MessageBox(hwnd, L"Could not initialize the color shader object.", L"Error", MB_OK);
 		return false;
 	}
 
+	m_Light = new LightClass;
+	m_Light->SetDiffuseColor(1.0f, 1.0f, 1.0f, 1.0f);
+	m_Light->SetDirection(0.0f, 0.0f, 1.0f);
+
 	return true;
 }
 
 void ApplicationClass::Shutdown() {
-	if (m_TextureShader) {
-		m_TextureShader->Shutdown();
-		delete m_TextureShader;
-		m_TextureShader = nullptr;
+	if (m_Light) {
+		delete m_Light;
+		m_Light = nullptr;
+	}
+	
+	if (m_LightShader) {
+		delete m_LightShader;
+		m_LightShader = nullptr;
 	}
 
 	if (m_Model) {
@@ -79,16 +90,23 @@ void ApplicationClass::Shutdown() {
 }
 
 bool ApplicationClass::Frame() {
+	static float rotation = 0.0f;
 	bool result;
 
-	result = Render();
+	rotation -= 0.0174532925f * 0.1f;
+
+	if (rotation < 0.0f) {
+		rotation += 360.0f;
+	}
+
+	result = Render(rotation);
 	if (!result) {
 		return false;
 	}
 	return true;
 }
 
-bool ApplicationClass::Render() {
+bool ApplicationClass::Render(float rotation) {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
 	bool result;
 
@@ -101,10 +119,12 @@ bool ApplicationClass::Render() {
 	m_Camera->GetViewMatrix(viewMatrix);
 	m_Direct3D->GetProjectionMatrix(projectionMatrix);
 
+	worldMatrix = XMMatrixRotationY(rotation);
+
 	m_Model->Render(m_Direct3D->GetDeviceContext());
 
-	result = m_TextureShader->Render(m_Direct3D->GetDeviceContext(), m_Model->GetIndexCount(),
-		worldMatrix, viewMatrix, projectionMatrix, m_Model->GetTexture());
+	result = m_LightShader->Render(m_Direct3D->GetDeviceContext(), m_Model->GetIndexCount(),
+		worldMatrix, viewMatrix, projectionMatrix, m_Model->GetTexture(), m_Light->GetDirection(), m_Light->GetDiffuseColor());
 	if (!result) {
 		return false;
 	}

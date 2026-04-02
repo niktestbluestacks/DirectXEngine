@@ -1,15 +1,12 @@
 #include "InputClass.hpp"
 
-InputClass::InputClass() {
-}
+InputClass::InputClass() {}
 
 
-InputClass::InputClass(const InputClass& other) {
-}
+InputClass::InputClass(const InputClass& other) {}
 
 
-InputClass::~InputClass() {
-}
+InputClass::~InputClass() {}
 
 void InputClass::Initialize() {
 	for (int i = 0; i < 256; i++) {
