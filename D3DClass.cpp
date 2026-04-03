@@ -73,8 +73,8 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
 	}
 
 	for (i = 0; i < numModes; i++) {
-		if (displayModeList[i].Width == static_cast <unsigned int> (screenWidth)) {
-			if (displayModeList[i].Height == (unsigned int)screenHeight) {
+		if (displayModeList[i].Width == (static_cast <unsigned int> (screenWidth))) {
+			if (displayModeList[i].Height == (static_cast <unsigned int> (screenHeight))) {
 				numerator = displayModeList[i].RefreshRate.Numerator;
 				denominator = displayModeList[i].RefreshRate.Denominator;
 			}

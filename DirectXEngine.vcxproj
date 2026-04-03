@@ -22,10 +22,12 @@
     <ClCompile Include="ApplicationClass.cpp" />
     <ClCompile Include="CameraClass.cpp" />
     <None Include="ColorShaderClass.cpp" />
+    <ClCompile Include="ClassMacroes.cpp" />
     <ClCompile Include="D3DClass.cpp" />
     <ClCompile Include="InputClass.cpp" />
     <ClCompile Include="LightClass.cpp" />
     <ClCompile Include="LightShaderClass.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModelClass.cpp" />
     <ClCompile Include="MyConverter.cpp" />
@@ -37,10 +39,12 @@
     <ClInclude Include="ApplicationClass.hpp" />
     <ClInclude Include="CameraClass.hpp" />
     <None Include="ColorShaderClass.hpp" />
+    <ClInclude Include="ClassMacroes.hpp" />
     <ClInclude Include="D3DClass.hpp" />
     <ClInclude Include="InputClass.hpp" />
     <ClInclude Include="LightClass.hpp" />
     <ClInclude Include="LightShaderClass.hpp" />
+    <ClInclude Include="Logger.hpp" />
     <ClInclude Include="ModelClass.hpp" />
     <ClInclude Include="MyConverter.hpp" />
     <ClInclude Include="SysteamClass.hpp" />
@@ -180,10 +184,10 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp23</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>

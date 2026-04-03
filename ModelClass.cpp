@@ -1,11 +1,13 @@
 #include "ModelClass.hpp"
 
 using namespace DirectX;
+using namespace std;
 
 ModelClass::ModelClass() {
 	m_vertexBuffer = nullptr;
 	m_indexBuffer = nullptr;
 	m_Texture = nullptr;
+	m_model = nullptr;
 }
 
 
@@ -16,9 +18,12 @@ ModelClass::ModelClass(const ModelClass& other) {
 ModelClass::~ModelClass() {
 }
 
-bool ModelClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext, char* textureFilename) {
+bool ModelClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext, char* modelFilename, char* textureFilename) {
 	bool result;
-
+	result = LoadModel(modelFilename);
+	if (!result) {
+		return false;
+	}
 
 	result = InitializeBuffers(device);
 	if (!result) {
@@ -37,7 +42,7 @@ void ModelClass::Shutdown() {
 
 	ReleaseTexture();
 	ShutdownBuffers();
-
+	ReleaseModel();
 	return;
 }
 
@@ -62,9 +67,6 @@ bool ModelClass::InitializeBuffers(ID3D11Device* device) {
 	D3D11_SUBRESOURCE_DATA vertexData, indexData;
 	HRESULT result;
 
-	m_vertexCount = 3;
-	m_indexCount = 3;
-
 	vertices = new VertexType[m_vertexCount];
 	if (!vertices) {
 		return false;
@@ -75,17 +77,14 @@ bool ModelClass::InitializeBuffers(ID3D11Device* device) {
 		return false;
 	}
 
-	vertices[0].position = XMFLOAT3(-1.0f, -1.0f, 0.0f);  // Bottom left.
-	vertices[0].texture = XMFLOAT2(0.0f, 0.0f);
-	vertices[0].normal = XMFLOAT3(0.0f, 0.0f, -1.0f);
+	for (int i = 0; i < m_vertexCount; i++)
+	{
+		vertices[i].position = XMFLOAT3(m_model[i].x, m_model[i].y, m_model[i].z);
+		vertices[i].texture = XMFLOAT2(m_model[i].tu, m_model[i].tv);
+		vertices[i].normal = XMFLOAT3(m_model[i].nx, m_model[i].ny, m_model[i].nz);
 
-	vertices[1].position = XMFLOAT3(0.0f, 1.0f, 0.0f);  // Top middle.
-	vertices[1].texture = XMFLOAT2(0.5f, 1.0f);
-	vertices[1].normal = XMFLOAT3(0.0f, 0.0f, -1.0f);
-
-	vertices[2].position = XMFLOAT3(1.0f, -1.0f, 0.0f);  // Bottom right.
-	vertices[2].texture = XMFLOAT2(1.0f, 0.0f);
-	vertices[2].normal = XMFLOAT3(0.0f, 0.0f, -1.0f);
+		indices[i] = i;
+	}
 
 	// Load the index array with data.
 	indices[0] = 0;  // Bottom left.
@@ -185,5 +184,54 @@ void ModelClass::ReleaseTexture() {
 		delete m_Texture;
 		m_Texture = nullptr;
 	}
+	return;
+}
+
+bool ModelClass::LoadModel(char* filename) {
+	ifstream fin;
+	char input;
+	int i;
+
+	fin.open(filename);
+
+	if (fin.fail()) {
+		return false;
+	}
+
+	fin.get(input);
+	while (input != ':') {
+		fin.get(input);
+	}
+
+	fin >> m_vertexCount;
+
+	m_indexCount = m_vertexCount;
+
+	m_model = new ModelType[m_vertexCount];
+
+	fin.get(input);
+	while (input != ':') {
+		fin.get(input);
+	}
+	fin.get(input);
+	fin.get(input);
+
+	for (i = 0; i < m_vertexCount; i++) {
+		fin >> m_model[i].x >> m_model[i].y >> m_model[i].z;
+		fin >> m_model[i].tu >> m_model[i].tv;
+		fin >> m_model[i].nx >> m_model[i].ny >> m_model[i].nz;
+	}
+
+	fin.close();
+
+	return true;
+}
+
+void ModelClass::ReleaseModel() {
+	if (m_model) {
+		delete[] m_model;
+		m_model = nullptr;
+	}
+
 	return;
 }

@@ -55,6 +55,9 @@
     <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\LightClass">
       <UniqueIdentifier>{17bdfe01-060a-4e78-a582-dad420bd81b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DX3D\Logger">
+      <UniqueIdentifier>{804c83e1-3e53-49e5-b620-bf9e89979483}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -90,6 +93,12 @@
     <ClCompile Include="MyConverter.cpp">
       <Filter>DX3D\HelpfulMacros</Filter>
     </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>DX3D\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="ClassMacroes.cpp">
+      <Filter>DX3D\HelpfulMacros</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SysteamClass.hpp">
@@ -121,6 +130,12 @@
     </ClInclude>
     <ClInclude Include="LightClass.hpp">
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\LightClass</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.hpp">
+      <Filter>DX3D\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassMacroes.hpp">
+      <Filter>DX3D\HelpfulMacros</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

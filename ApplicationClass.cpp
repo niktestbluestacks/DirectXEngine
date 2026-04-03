@@ -20,6 +20,7 @@ ApplicationClass::~ApplicationClass() {}
 bool ApplicationClass::Initialize(int screenWidth, int screenHeight, HWND hwnd) {
 	bool result;
 	char textureFilename[128];
+	char modelFilename[128];
 	m_Direct3D = new D3DClass;
 
 	result = m_Direct3D->Initialize(screenWidth, screenHeight, VSYNC_ENABLED, hwnd, FULL_SCREEN, SCREEN_DEPTH, SCREEN_NEAR);
@@ -35,9 +36,15 @@ bool ApplicationClass::Initialize(int screenWidth, int screenHeight, HWND hwnd) 
 
 	auto textureStr = MyConverter::constCharPtrPathToString("../DirectXEngine/TestingTextures/stone01.tga");
 	auto textureCStr = textureStr->c_str();
+
+	auto modelStr = MyConverter::constCharPtrPathToString("../DirectXEngine/TestingTextures/Cube.txt");
+	auto modelCStr = modelStr->c_str();
+
 	strcpy_s(textureFilename, 128, textureCStr);
+	strcpy_s(modelFilename, 128, modelCStr);
 	textureStr.reset();
-	result = m_Model->Initialize(m_Direct3D->GetDevice(), m_Direct3D->GetDeviceContext(), textureFilename);
+	modelStr.reset();
+	result = m_Model->Initialize(m_Direct3D->GetDevice(), m_Direct3D->GetDeviceContext(), modelFilename, textureFilename);
 	if (!result) {
 		MessageBox(hwnd, L"Could not initialize the model object.", L"Error", MB_OK);
 		return false;
@@ -65,6 +72,7 @@ void ApplicationClass::Shutdown() {
 	}
 	
 	if (m_LightShader) {
+		m_LightShader->Shutdown();
 		delete m_LightShader;
 		m_LightShader = nullptr;
 	}
@@ -93,7 +101,7 @@ bool ApplicationClass::Frame() {
 	static float rotation = 0.0f;
 	bool result;
 
-	rotation -= 0.0174532925f * 0.1f;
+	rotation -= 0.0174532925f * 0.25f;
 
 	if (rotation < 0.0f) {
 		rotation += 360.0f;
@@ -119,7 +127,7 @@ bool ApplicationClass::Render(float rotation) {
 	m_Camera->GetViewMatrix(viewMatrix);
 	m_Direct3D->GetProjectionMatrix(projectionMatrix);
 
-	worldMatrix = XMMatrixRotationY(rotation);
+	worldMatrix = XMMatrixRotationY(rotation) * XMMatrixRotationX(rotation / 2.0f) * XMMatrixRotationZ(rotation * 3.0f);
 
 	m_Model->Render(m_Direct3D->GetDeviceContext());
 

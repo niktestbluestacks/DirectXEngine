@@ -98,6 +98,17 @@ bool TextureClass::LoadTarga32Bit(char* filename) {
 		return false;
 	}
 
+	unsigned char idLength = targaFileHeader.data1[0];  // Первый байт = id_length
+	if (idLength > 0) {
+		fseek(filePtr, idLength, SEEK_CUR);  // ← Пропустить ID!
+	}
+
+	unsigned char imageType = targaFileHeader.data1[2];  // Третий байт
+
+	if (imageType != 2) {
+		return false;
+	}
+
 	int bpp;
 	m_width = targaFileHeader.width;
 	m_height = targaFileHeader.height;

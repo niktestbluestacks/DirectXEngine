@@ -1,5 +1,8 @@
 #include "LightShaderClass.hpp"
 #include "MyConverter.hpp"
+#include <cstdint>
+
+typedef uint64_t ui64;
 
 using namespace DirectX;
 using namespace std;
@@ -244,7 +247,7 @@ bool LightShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, WCHAR* 
 
 void LightShaderClass::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND hwnd, WCHAR* shaderFilename) {
 	char* compileErrors;
-	unsigned long bufferSize, i;
+	ui64 bufferSize, i;
 	ofstream fout;
 	compileErrors = static_cast <char*> (errorMessage->GetBufferPointer());
 	bufferSize = errorMessage->GetBufferSize();
@@ -263,9 +266,14 @@ bool LightShaderClass::SetShaderParameters(ID3D11DeviceContext* deviceContext, X
 	ID3D11ShaderResourceView* texture, XMFLOAT3 lightDirection, XMFLOAT4 diffuseColor) {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
+	unsigned int bufferNumber;
 	MatrixBufferType* dataPtr;
 	LightBufferType* dataPtr2;
-    unsigned int bufferNumber;
+
+	worldMatrix = XMMatrixTranspose(worldMatrix);
+	viewMatrix = XMMatrixTranspose(viewMatrix);
+	projectionMatrix = XMMatrixTranspose(projectionMatrix);
+
 	result = deviceContext->Map(m_matrixBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 	if (FAILED(result)) {
 		return false;
