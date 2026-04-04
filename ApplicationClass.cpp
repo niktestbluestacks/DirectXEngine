@@ -30,14 +30,14 @@ bool ApplicationClass::Initialize(int screenWidth, int screenHeight, HWND hwnd) 
 	}
 	m_Camera = new CameraClass;
 
-	m_Camera->SetPosition(0.0f, 0.0f, -5.0f);
+	m_Camera->SetPosition(0.0f, 0.0f, -10.0f);
 
 	m_Model = new ModelClass;
 
 	auto textureStr = MyConverter::constCharPtrPathToString("../DirectXEngine/TestingTextures/stone01.tga");
 	auto textureCStr = textureStr->c_str();
 
-	auto modelStr = MyConverter::constCharPtrPathToString("../DirectXEngine/TestingTextures/Cube.txt");
+	auto modelStr = MyConverter::constCharPtrPathToString("../DirectXEngine/TestingTextures/Sphere.txt");
 	auto modelCStr = modelStr->c_str();
 
 	strcpy_s(textureFilename, 128, textureCStr);
@@ -59,8 +59,11 @@ bool ApplicationClass::Initialize(int screenWidth, int screenHeight, HWND hwnd) 
 	}
 
 	m_Light = new LightClass;
+	m_Light->SetAmbientColor(0.15f, 0.15f, 0.15f, 1.0f);
 	m_Light->SetDiffuseColor(1.0f, 1.0f, 1.0f, 1.0f);
-	m_Light->SetDirection(0.0f, 0.0f, 1.0f);
+	m_Light->SetDirection(1.0f, 0.0f, 1.0f);
+	m_Light->SetSpecularColor(1.0f, 1.0f, 1.0f, 1.0f);
+	m_Light->SetSpecularPower(32.0f);
 
 	return true;
 }
@@ -115,7 +118,7 @@ bool ApplicationClass::Frame() {
 }
 
 bool ApplicationClass::Render(float rotation) {
-	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
+	XMMATRIX worldMatrix, viewMatrix, projectionMatrix, rotateMatrix, translateMatrix, scaleMatrix, srMatrix;
 	bool result;
 
 
@@ -127,12 +130,33 @@ bool ApplicationClass::Render(float rotation) {
 	m_Camera->GetViewMatrix(viewMatrix);
 	m_Direct3D->GetProjectionMatrix(projectionMatrix);
 
-	worldMatrix = XMMatrixRotationY(rotation) * XMMatrixRotationX(rotation / 2.0f) * XMMatrixRotationZ(rotation * 3.0f);
+	rotateMatrix = XMMatrixRotationY(rotation)/* * XMMatrixRotationX(rotation / 2.0f) * XMMatrixRotationZ(rotation * 3.0f)*/;
+	translateMatrix = XMMatrixTranslation(-2.0f, 0.0f, 0.0f);
+	worldMatrix = XMMatrixMultiply(rotateMatrix, translateMatrix);
 
 	m_Model->Render(m_Direct3D->GetDeviceContext());
 
 	result = m_LightShader->Render(m_Direct3D->GetDeviceContext(), m_Model->GetIndexCount(),
-		worldMatrix, viewMatrix, projectionMatrix, m_Model->GetTexture(), m_Light->GetDirection(), m_Light->GetDiffuseColor());
+		worldMatrix, viewMatrix, projectionMatrix, m_Model->GetTexture(), m_Light->GetDirection(), m_Light->GetAmbientColor(), m_Light->GetDiffuseColor(),
+		m_Camera->GetPosition(), m_Light->GetSpecularColor(), m_Light->GetSpecularPower());
+
+	/*if (!result) {
+		return false;
+	}
+
+	scaleMatrix = XMMatrixScaling(0.5f, 0.5f, 0.5f);  
+	rotateMatrix = XMMatrixRotationY(rotation)// * XMMatrixRotationX(rotation / -2.0f) * XMMatrixRotationZ(rotation * 3.0f);
+	translateMatrix = XMMatrixTranslation(2.0f, 0.0f, 0.0f);  
+
+	// Multiply the scale, rotation, and translation matrices together to create the final world transformation matrix.
+	srMatrix = XMMatrixMultiply(scaleMatrix, rotateMatrix);
+	worldMatrix = XMMatrixMultiply(srMatrix, translateMatrix);
+
+	m_Model->Render(m_Direct3D->GetDeviceContext());
+
+	result = m_LightShader->Render(m_Direct3D->GetDeviceContext(), m_Model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix, m_Model->GetTexture(),
+		m_Light->GetDirection(), m_Light->GetAmbientColor(), m_Light->GetDiffuseColor());*/
+
 	if (!result) {
 		return false;
 	}

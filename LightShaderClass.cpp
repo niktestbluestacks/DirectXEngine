@@ -13,6 +13,7 @@ LightShaderClass::LightShaderClass() {
 	m_layout = nullptr;
 	m_sampleState = nullptr;
 	m_matrixBuffer = nullptr;
+	m_cameraBuffer = nullptr;
 	m_lightBuffer = nullptr;
 }
 
@@ -55,34 +56,6 @@ bool LightShaderClass::Initialize(ID3D11Device* device, HWND hwnd) {
 	return true;
 }
 
-void LightShaderClass::ShutdownShader() {
-	if (m_lightBuffer) {
-		m_lightBuffer->Release();
-		m_lightBuffer = nullptr;
-	}
-	if (m_matrixBuffer) {
-		m_matrixBuffer->Release();
-		m_matrixBuffer = nullptr;
-	}
-	if (m_sampleState) {
-		m_sampleState->Release();
-		m_sampleState = nullptr;
-	}
-	if (m_layout) {
-		m_layout->Release();
-		m_layout = nullptr;
-	}
-	if (m_pixelShader) {
-		m_pixelShader->Release();
-		m_pixelShader = nullptr;
-	}
-	if (m_vertexShader) {
-		m_vertexShader->Release();
-		m_vertexShader = nullptr;
-	}
-	return;
-}
-
 void LightShaderClass::Shutdown() {
 	ShutdownShader();
 
@@ -91,8 +64,10 @@ void LightShaderClass::Shutdown() {
 
 bool LightShaderClass::Render(ID3D11DeviceContext* deviceContext, int indexCount,
 	XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix,
-	ID3D11ShaderResourceView* texture, XMFLOAT3 lightDirection, XMFLOAT4 diffuseColor) {
-	bool result = SetShaderParameters(deviceContext, worldMatrix, viewMatrix, projectionMatrix, texture, lightDirection, diffuseColor);
+	ID3D11ShaderResourceView* texture, XMFLOAT3 lightDirection,
+	XMFLOAT4 ambientColor, XMFLOAT4 diffuseColor, XMFLOAT3 cameraPosition, XMFLOAT4 specularColor, float specularPower) {
+	bool result = SetShaderParameters(deviceContext, worldMatrix, viewMatrix, projectionMatrix, texture,
+		lightDirection, ambientColor, diffuseColor, cameraPosition, specularColor, specularPower);
 
 	if (!result) {
 		return false;
@@ -114,6 +89,7 @@ bool LightShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, WCHAR* 
 	unsigned int numElements;
 	D3D11_SAMPLER_DESC samplerDesc;
 	D3D11_BUFFER_DESC matrixBufferDesc;
+	D3D11_BUFFER_DESC cameraBufferDesc;
 	D3D11_BUFFER_DESC lightBufferDesc;
 
 	errorMessage = nullptr;
@@ -230,6 +206,18 @@ bool LightShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, WCHAR* 
 		return false;
 	}
 
+	cameraBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+	cameraBufferDesc.ByteWidth = sizeof(CameraBufferType);
+	cameraBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	cameraBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	cameraBufferDesc.MiscFlags = 0;
+	cameraBufferDesc.StructureByteStride = 0;
+
+	result = device->CreateBuffer(&cameraBufferDesc, nullptr, &m_cameraBuffer);
+	if (FAILED(result)) {
+		return false;
+	}
+
 	lightBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
 	lightBufferDesc.ByteWidth = sizeof(LightBufferType);
 	lightBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
@@ -243,6 +231,38 @@ bool LightShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, WCHAR* 
 	}
 
 	return true;
+}
+
+void LightShaderClass::ShutdownShader() {
+	if (m_lightBuffer) {
+		m_lightBuffer->Release();
+		m_lightBuffer = nullptr;
+	}
+	if (m_cameraBuffer) {
+		m_cameraBuffer->Release();
+		m_cameraBuffer = nullptr;
+	}
+	if (m_matrixBuffer) {
+		m_matrixBuffer->Release();
+		m_matrixBuffer = nullptr;
+	}
+	if (m_sampleState) {
+		m_sampleState->Release();
+		m_sampleState = nullptr;
+	}
+	if (m_layout) {
+		m_layout->Release();
+		m_layout = nullptr;
+	}
+	if (m_pixelShader) {
+		m_pixelShader->Release();
+		m_pixelShader = nullptr;
+	}
+	if (m_vertexShader) {
+		m_vertexShader->Release();
+		m_vertexShader = nullptr;
+	}
+	return;
 }
 
 void LightShaderClass::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND hwnd, WCHAR* shaderFilename) {
@@ -263,12 +283,14 @@ void LightShaderClass::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND h
 }
 
 bool LightShaderClass::SetShaderParameters(ID3D11DeviceContext* deviceContext, XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix,
-	ID3D11ShaderResourceView* texture, XMFLOAT3 lightDirection, XMFLOAT4 diffuseColor) {
+	ID3D11ShaderResourceView* texture, XMFLOAT3 lightDirection, XMFLOAT4 ambientColor, XMFLOAT4 diffuseColor,
+	XMFLOAT3 cameraPosition, XMFLOAT4 specularColor, float specularPower) {
 	HRESULT result;
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
 	unsigned int bufferNumber;
 	MatrixBufferType* dataPtr;
 	LightBufferType* dataPtr2;
+	CameraBufferType* dataPtr3;
 
 	worldMatrix = XMMatrixTranspose(worldMatrix);
 	viewMatrix = XMMatrixTranspose(viewMatrix);
@@ -285,6 +307,22 @@ bool LightShaderClass::SetShaderParameters(ID3D11DeviceContext* deviceContext, X
 	deviceContext->Unmap(m_matrixBuffer, 0);
 	bufferNumber = 0;
 	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &m_matrixBuffer);
+
+	result = deviceContext->Map(m_cameraBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	if (FAILED(result)) {
+		return false;
+	}
+
+	dataPtr3 = (CameraBufferType*)mappedResource.pData;
+
+	dataPtr3->cameraPosition = cameraPosition;
+	dataPtr3->padding = 0.0f;
+
+	deviceContext->Unmap(m_cameraBuffer, 0);
+	bufferNumber = 1;
+	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &m_cameraBuffer);
+
+
 	deviceContext->PSSetShaderResources(0, 1, &texture);
     result = deviceContext->Map(m_lightBuffer, 0, D3D11_MAP_WRITE_DISCARD,
 		0, &mappedResource);
@@ -292,9 +330,12 @@ bool LightShaderClass::SetShaderParameters(ID3D11DeviceContext* deviceContext, X
 		return false;
 	}
     dataPtr2 = static_cast<LightBufferType*>(mappedResource.pData);
+	dataPtr2->ambientColor = ambientColor;
     dataPtr2->diffuseColor = diffuseColor;
 	dataPtr2->lightDirection = lightDirection;
-	dataPtr2->padding = 0.0f;
+	dataPtr2->specularColor = specularColor;
+	dataPtr2->specularPower = specularPower;
+
 	deviceContext->Unmap(m_lightBuffer, 0);
 	bufferNumber = 0;
 	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &m_lightBuffer);
