@@ -94,6 +94,21 @@
     <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\SpecMapShaderClass">
       <UniqueIdentifier>{fdc096ae-4f07-4243-ad61-ef2b3d375dfd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\FrustumClass">
+      <UniqueIdentifier>{4c611c54-c4ca-47d9-a492-eeac85c940c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ModeListClass">
+      <UniqueIdentifier>{aecefbe1-a15c-45d5-bbef-a106c735b58b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\PositionClass">
+      <UniqueIdentifier>{2d6419e3-72df-45a9-bba9-4716a6e7a6bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\RenderTextureClass">
+      <UniqueIdentifier>{48945fdb-be74-4e18-812f-56e5fde75171}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\DisplayPlaneClass">
+      <UniqueIdentifier>{238cd9b5-6ccf-4cc2-9508-7fafb6b73914}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -174,6 +189,21 @@
     <ClCompile Include="ShaderManagerClass.cpp">
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass</Filter>
     </ClCompile>
+    <ClCompile Include="FrustumClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\FrustumClass</Filter>
+    </ClCompile>
+    <ClCompile Include="ModeListClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ModeListClass</Filter>
+    </ClCompile>
+    <ClCompile Include="PositionClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\PositionClass</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTextureClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\RenderTextureClass</Filter>
+    </ClCompile>
+    <ClCompile Include="DisplayPlaneClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\DisplayPlaneClass</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SysteamClass.hpp">
@@ -250,6 +280,21 @@
     </ClInclude>
     <ClInclude Include="ShaderManagerClass.hpp">
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass</Filter>
+    </ClInclude>
+    <ClInclude Include="FrustumClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\FrustumClass</Filter>
+    </ClInclude>
+    <ClInclude Include="ModeListClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ModeListClass</Filter>
+    </ClInclude>
+    <ClInclude Include="PositionClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\PositionClass</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTextureClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\RenderTextureClass</Filter>
+    </ClInclude>
+    <ClInclude Include="DisplayPlaneClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\DisplayPlaneClass</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

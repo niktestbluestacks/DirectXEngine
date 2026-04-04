@@ -7,8 +7,10 @@
 #include "InputClass.hpp"
 #include "CameraClass.hpp"
 #include "ModelClass.hpp"
-#include "LightClass.hpp"
-#include "ShaderManagerClass.hpp"
+#include "TextureShaderClass.hpp"
+#include "RenderTextureClass.hpp"
+#include "DisplayPlaneClass.hpp"
+
 
 // Global constants.
 const bool FULL_SCREEN = true;
@@ -28,13 +30,16 @@ public:
 	void Shutdown();
 	bool Frame(InputClass*);
 private:
-	bool Render(float);
+	bool Render();
+	bool RenderSceneToTexture(float rotation);
+
 private:
-	D3DClass* m_Direct3D;
-	CameraClass* m_Camera;
-	ModelClass* m_Model;
-	LightClass* m_Light;
-	ShaderManagerClass* m_ShaderManager;
+    D3DClass* m_Direct3D;
+    CameraClass* m_Camera;
+    ModelClass* m_Model;
+	TextureShaderClass* m_TextureShader;
+	RenderTextureClass* m_RenderTexture;
+	DisplayPlaneClass* m_DisplayPlane;
 };
 #endif // _APPLICATIONCLASS_HPP_
 
