@@ -5,8 +5,9 @@
 // My header files.
 #include "D3DClass.hpp"
 #include "CameraClass.hpp"
-#include "TextureShaderClass.hpp"
-#include "BitmapClass.hpp"
+#include "FontShaderClass.hpp"
+#include "FontClass.hpp"
+#include "TextClass.hpp"
 
 
 // Global constants.
@@ -31,9 +32,9 @@ private:
 private:
 	D3DClass* m_Direct3D;
 	CameraClass* m_Camera;
-	BitmapClass* m_Model;
-	TextureShaderClass* m_TextureShader;
-	BitmapClass* m_Bitmap;
+	FontShaderClass* m_FontShader;
+	FontClass* m_Font;
+	TextClass* m_TextString1, * m_TextString2;
 };
 #endif // _APPLICATIONCLASS_HPP_
 

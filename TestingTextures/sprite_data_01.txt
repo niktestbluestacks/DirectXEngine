@@ -1,0 +1,6 @@
+4
+../DirectXEngine/TestingTextures/sprite01.tga
+../DirectXEngine/TestingTextures/sprite02.tga
+../DirectXEngine/TestingTextures/sprite03.tga
+../DirectXEngine/TestingTextures/sprite04.tga
+250

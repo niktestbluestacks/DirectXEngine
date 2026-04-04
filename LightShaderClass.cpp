@@ -212,7 +212,7 @@ bool LightShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, WCHAR* 
 	lightColorBufferDesc.MiscFlags = 0;
 	lightColorBufferDesc.StructureByteStride = 0;
 
-	result = device->CreateBuffer(&lightColorBufferDesc, NULL, &m_lightColorBuffer);
+	result = device->CreateBuffer(&lightColorBufferDesc, nullptr, &m_lightColorBuffer);
 	if (FAILED(result))
 	{
 		return false;
@@ -225,7 +225,7 @@ bool LightShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, WCHAR* 
 	lightPositionBufferDesc.MiscFlags = 0;
 	lightPositionBufferDesc.StructureByteStride = 0;
 
-	result = device->CreateBuffer(&lightPositionBufferDesc, NULL, &m_lightPositionBuffer);
+	result = device->CreateBuffer(&lightPositionBufferDesc, nullptr, &m_lightPositionBuffer);
 	if (FAILED(result)) {
 		return false;
 	}

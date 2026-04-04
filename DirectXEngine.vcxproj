@@ -21,6 +21,10 @@
   <ItemGroup>
     <ClCompile Include="ApplicationClass.cpp" />
     <ClCompile Include="CameraClass.cpp" />
+    <ClCompile Include="FontClass.cpp" />
+    <ClCompile Include="FontShaderClass.cpp" />
+    <ClCompile Include="TextClass.cpp" />
+    <ClCompile Include="TimerClass.cpp" />
     <None Include="ColorShaderClass.cpp" />
     <ClCompile Include="ClassMacroes.cpp" />
     <ClCompile Include="D3DClass.cpp" />
@@ -29,7 +33,7 @@
     <ClCompile Include="LightShaderClass.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="BitmapClass.cpp" />
+    <ClCompile Include="SpriteClass.cpp" />
     <ClCompile Include="MyConverter.cpp" />
     <ClCompile Include="SystemClass.cpp" />
     <ClCompile Include="TextureClass.cpp" />
@@ -38,6 +42,10 @@
   <ItemGroup>
     <ClInclude Include="ApplicationClass.hpp" />
     <ClInclude Include="CameraClass.hpp" />
+    <ClInclude Include="FontClass.hpp" />
+    <ClInclude Include="FontShaderClass.hpp" />
+    <ClInclude Include="TextClass.hpp" />
+    <ClInclude Include="TimerClass.hpp" />
     <None Include="ColorShaderClass.hpp" />
     <ClInclude Include="ClassMacroes.hpp" />
     <ClInclude Include="D3DClass.hpp" />
@@ -45,7 +53,7 @@
     <ClInclude Include="LightClass.hpp" />
     <ClInclude Include="LightShaderClass.hpp" />
     <ClInclude Include="Logger.hpp" />
-    <ClInclude Include="BitmapClass.hpp" />
+    <ClInclude Include="SpriteClass.hpp" />
     <ClInclude Include="MyConverter.hpp" />
     <ClInclude Include="SysteamClass.hpp" />
     <ClInclude Include="TextureClass.hpp" />
@@ -84,6 +92,30 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="lightps.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="fontps.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
+      <FileType>Document</FileType>
+    </None>
+    <None Include="fontvs.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compute</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Compute</ShaderType>

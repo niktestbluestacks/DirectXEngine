@@ -1,27 +1,30 @@
 #pragma once
-#ifndef _BITMAPCLASS_HPP_
-#define _BITMAPCLASS_HPP_
+#ifndef _SPRITECLASS_HPP_
+#define _SPRITECLASS_HPP_
 
 // Includes
 #include <DirectXMath.h>
+#include <fstream>
 // My own includes
 #include "TextureClass.hpp"
 
-// Class name: BitmapClass
-class BitmapClass {
+// Class name: SpriteClass
+class SpriteClass {
 private:
 	struct VertexType {
 		DirectX::XMFLOAT3 position;
 		DirectX::XMFLOAT2 texture;
 	};
 public:
-    BitmapClass();
-    BitmapClass(const BitmapClass&);
-    ~BitmapClass();
+    SpriteClass();
+    SpriteClass(const SpriteClass&);
+    ~SpriteClass();
 
     bool Initialize(ID3D11Device*, ID3D11DeviceContext*, int, int, char*, int, int);
     void Shutdown();
     bool Render(ID3D11DeviceContext*);
+
+    void Update(float);
 
     int GetIndexCount();
     ID3D11ShaderResourceView* GetTexture();
@@ -40,7 +43,9 @@ private:
 private:
     ID3D11Buffer* m_vertexBuffer, * m_indexBuffer;
     int m_vertexCount, m_indexCount, m_screenWidth, m_screenHeight, m_bitmapWidth, m_bitmapHeight, m_renderX, m_renderY, m_prevPosX, m_prevPosY;
-    TextureClass* m_Texture;
+    TextureClass* m_Textures;
+    float m_frameTime, m_cycleTime;
+    int m_currentTexture, m_textureCount;
 };
-#endif // _BITMAPCLASS_HPP_
+#endif // _SPRITECLASS_HPP_
 
