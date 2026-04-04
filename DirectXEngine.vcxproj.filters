@@ -34,18 +34,6 @@
     <Filter Include="DX3D\HelpfulMacros">
       <UniqueIdentifier>{b8cdf5d5-d09e-41b2-ba07-52a7cd452fdc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\Shaders">
-      <UniqueIdentifier>{a19ff6f4-c202-4251-a9ff-359e6468482d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\Shaders\LightShaderClass">
-      <UniqueIdentifier>{b7923f58-2871-4bd2-8c13-75da43eb6750}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\Shaders\TextureShaderClass">
-      <UniqueIdentifier>{0465fdeb-6a63-4164-b632-78549aa53472}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\Shaders\ColorShaderClass">
-      <UniqueIdentifier>{f8db615e-ca64-4adf-ab30-fc4baaec3058}</UniqueIdentifier>
-    </Filter>
     <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\LightClass">
       <UniqueIdentifier>{17bdfe01-060a-4e78-a582-dad420bd81b1}</UniqueIdentifier>
     </Filter>
@@ -55,28 +43,61 @@
     <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\SpriteClass">
       <UniqueIdentifier>{11a36bde-a704-4cf8-8188-307d8b60764a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\SpriteClass\TextureClass">
-      <UniqueIdentifier>{e05f7120-2eb6-4c30-ba3d-2b396e0f36d0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\TimerClass">
       <UniqueIdentifier>{e6c6d7dc-046f-4552-b54e-be66ad9c00f8}</UniqueIdentifier>
     </Filter>
     <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\FontClass">
       <UniqueIdentifier>{742af8b1-0313-4bd0-b6ac-fc9fe0edfaeb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\Shaders\FontShaderClass">
-      <UniqueIdentifier>{07921ddc-e471-4b3a-8eee-9b3689086bee}</UniqueIdentifier>
-    </Filter>
     <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\TextClass">
       <UniqueIdentifier>{7a08326f-d452-480d-98b6-1552ddef9f67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\FpsClass">
+      <UniqueIdentifier>{37d3b743-b2f8-44f3-ac43-cd824031a0f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ModelClass">
+      <UniqueIdentifier>{eeabf140-dbc7-461c-a9bb-1220c83cd497}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ModelClass\TextureClass">
+      <UniqueIdentifier>{e05f7120-2eb6-4c30-ba3d-2b396e0f36d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass">
+      <UniqueIdentifier>{42ae5445-265a-4324-b852-4abd14a7e3d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders">
+      <UniqueIdentifier>{a19ff6f4-c202-4251-a9ff-359e6468482d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\LightShaderClass">
+      <UniqueIdentifier>{b7923f58-2871-4bd2-8c13-75da43eb6750}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\TextureShaderClass">
+      <UniqueIdentifier>{0465fdeb-6a63-4164-b632-78549aa53472}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\ColorShaderClass">
+      <UniqueIdentifier>{f8db615e-ca64-4adf-ab30-fc4baaec3058}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\FontShaderClass">
+      <UniqueIdentifier>{07921ddc-e471-4b3a-8eee-9b3689086bee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\MultiTextureShaderClass">
+      <UniqueIdentifier>{fa13c511-8bcc-413b-b7be-143f1018cacf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\LightMapShaderClass">
+      <UniqueIdentifier>{d272e02b-b602-44cc-b6e0-88e51e83b91b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\AlphaMapShaderClass">
+      <UniqueIdentifier>{18155a66-8334-4d3b-b79f-bdb8ab3781d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\NormalMapShaderClass">
+      <UniqueIdentifier>{6a952cfa-f755-4bd2-92c1-d9138484ec69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\SpecMapShaderClass">
+      <UniqueIdentifier>{fdc096ae-4f07-4243-ad61-ef2b3d375dfd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>DX3D\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="SystemClass.cpp">
-      <Filter>DX3D\WinMain\SystemClass</Filter>
     </ClCompile>
     <ClCompile Include="InputClass.cpp">
       <Filter>DX3D\WinMain\SystemClass\InputClass</Filter>
@@ -94,10 +115,10 @@
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\CameraClass</Filter>
     </ClCompile>
     <ClCompile Include="TextureClass.cpp">
-      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\SpriteClass\TextureClass</Filter>
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ModelClass\TextureClass</Filter>
     </ClCompile>
     <ClCompile Include="LightShaderClass.cpp">
-      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\Shaders\LightShaderClass</Filter>
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\LightShaderClass</Filter>
     </ClCompile>
     <ClCompile Include="LightClass.cpp">
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\LightClass</Filter>
@@ -112,7 +133,7 @@
       <Filter>DX3D\HelpfulMacros</Filter>
     </ClCompile>
     <ClCompile Include="TextureShaderClass.cpp">
-      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\Shaders\TextureShaderClass</Filter>
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\TextureShaderClass</Filter>
     </ClCompile>
     <ClCompile Include="TimerClass.cpp">
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\TimerClass</Filter>
@@ -121,10 +142,37 @@
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\FontClass</Filter>
     </ClCompile>
     <ClCompile Include="FontShaderClass.cpp">
-      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\Shaders\FontShaderClass</Filter>
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\FontShaderClass</Filter>
     </ClCompile>
     <ClCompile Include="TextClass.cpp">
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\TextClass</Filter>
+    </ClCompile>
+    <ClCompile Include="FpsClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\FpsClass</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiTextureShaderClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\MultiTextureShaderClass</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ModelClass</Filter>
+    </ClCompile>
+    <ClCompile Include="LightMapShaderClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\LightMapShaderClass</Filter>
+    </ClCompile>
+    <ClCompile Include="AlphaMapShaderClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\AlphaMapShaderClass</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalMapShaderClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\NormalMapShaderClass</Filter>
+    </ClCompile>
+    <ClCompile Include="SpecMapShaderClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\SpecMapShaderClass</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderManagerClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -147,13 +195,13 @@
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\CameraClass</Filter>
     </ClInclude>
     <ClInclude Include="TextureClass.hpp">
-      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\SpriteClass\TextureClass</Filter>
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ModelClass\TextureClass</Filter>
     </ClInclude>
     <ClInclude Include="MyConverter.hpp">
       <Filter>DX3D\HelpfulMacros</Filter>
     </ClInclude>
     <ClInclude Include="LightShaderClass.hpp">
-      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\Shaders\LightShaderClass</Filter>
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\LightShaderClass</Filter>
     </ClInclude>
     <ClInclude Include="LightClass.hpp">
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\LightClass</Filter>
@@ -165,7 +213,7 @@
       <Filter>DX3D\HelpfulMacros</Filter>
     </ClInclude>
     <ClInclude Include="TextureShaderClass.hpp">
-      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\Shaders\TextureShaderClass</Filter>
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\TextureShaderClass</Filter>
     </ClInclude>
     <ClInclude Include="TimerClass.hpp">
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\TimerClass</Filter>
@@ -174,42 +222,96 @@
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\FontClass</Filter>
     </ClInclude>
     <ClInclude Include="FontShaderClass.hpp">
-      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\Shaders\FontShaderClass</Filter>
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\FontShaderClass</Filter>
     </ClInclude>
     <ClInclude Include="TextClass.hpp">
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\TextClass</Filter>
     </ClInclude>
+    <ClInclude Include="FpsClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\FpsClass</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiTextureShaderClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\MultiTextureShaderClass</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ModelClass</Filter>
+    </ClInclude>
+    <ClInclude Include="LightMapShaderClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\LightMapShaderClass</Filter>
+    </ClInclude>
+    <ClInclude Include="AlphaMapShaderClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\AlphaMapShaderClass</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalMapShaderClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\NormalMapShaderClass</Filter>
+    </ClInclude>
+    <ClInclude Include="SpecMapShaderClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\SpecMapShaderClass</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderManagerClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ColorShaderClass.cpp">
-      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\Shaders\ColorShaderClass</Filter>
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\ColorShaderClass</Filter>
     </None>
     <None Include="ColorShaderClass.hpp">
-      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\Shaders\ColorShaderClass</Filter>
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\ColorShaderClass</Filter>
     </None>
     <None Include="textureps.hlsl">
-      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\Shaders\TextureShaderClass</Filter>
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\TextureShaderClass</Filter>
     </None>
     <None Include="texturevs.hlsl">
-      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\Shaders\TextureShaderClass</Filter>
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\TextureShaderClass</Filter>
     </None>
     <None Include="colorps.hlsl">
-      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\Shaders\ColorShaderClass</Filter>
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\ColorShaderClass</Filter>
     </None>
     <None Include="colorvs.hlsl">
-      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\Shaders\ColorShaderClass</Filter>
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\ColorShaderClass</Filter>
     </None>
     <None Include="lightvs.hlsl">
-      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\Shaders\LightShaderClass</Filter>
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\LightShaderClass</Filter>
     </None>
     <None Include="lightps.hlsl">
-      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\Shaders\LightShaderClass</Filter>
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\LightShaderClass</Filter>
     </None>
     <None Include="fontps.hlsl">
-      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\Shaders\FontShaderClass</Filter>
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\FontShaderClass</Filter>
     </None>
     <None Include="fontvs.hlsl">
-      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\Shaders\FontShaderClass</Filter>
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\FontShaderClass</Filter>
+    </None>
+    <None Include="multitextureps.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\MultiTextureShaderClass</Filter>
+    </None>
+    <None Include="multitexturevs.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\MultiTextureShaderClass</Filter>
+    </None>
+    <None Include="lightmapvs.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\LightMapShaderClass</Filter>
+    </None>
+    <None Include="lightmapps.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\LightMapShaderClass</Filter>
+    </None>
+    <None Include="alphamapps.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\AlphaMapShaderClass</Filter>
+    </None>
+    <None Include="alphamapvs.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\AlphaMapShaderClass</Filter>
+    </None>
+    <None Include="normalmapps.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\NormalMapShaderClass</Filter>
+    </None>
+    <None Include="normalmapvs.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\NormalMapShaderClass</Filter>
+    </None>
+    <None Include="specmapps.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\SpecMapShaderClass</Filter>
+    </None>
+    <None Include="specmapvs.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\SpecMapShaderClass</Filter>
     </None>
   </ItemGroup>
 </Project>

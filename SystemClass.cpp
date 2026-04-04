@@ -22,7 +22,11 @@ bool SystemClass::Initialize() {
 
 	m_Input = new InputClass;
 
-	m_Input->Initialize();
+	result = m_Input->Initialize(m_hinstance, m_hwnd, screenWidth, screenHeight);
+	if (!result) {
+		return false;
+	}
+
 
 	m_Application = new ApplicationClass;
 
@@ -77,11 +81,12 @@ void SystemClass::Run() {
 
 bool SystemClass::Frame() {
 	bool result;
-	if (m_Input->IsKeyDown(VK_ESCAPE)) {
+	result = m_Input->Frame();
+	if (!result) {
 		return false;
 	}
 
-	result = m_Application->Frame();
+	result = m_Application->Frame(m_Input);
 
 	if (!result) {
 		return false;
@@ -90,27 +95,8 @@ bool SystemClass::Frame() {
 	return true;
 }
 
-LRESULT CALLBACK SystemClass::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam)
-{
-	switch (umsg)
-	{
-	case WM_KEYDOWN:
-	{
-		m_Input->KeyDown(static_cast <unsigned int> (wparam));
-		return 0;
-	}
-
-	case WM_KEYUP:
-	{
-		m_Input->KeyUp(static_cast <unsigned int> (wparam));
-		return 0;
-	}
-
-	default:
-	{
-		return DefWindowProc(hwnd, umsg, wparam, lparam);
-	}
-	}
+LRESULT CALLBACK SystemClass::MessageHandler(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam) {
+    return DefWindowProc(hwnd, umsg, wparam, lparam);
 }
 
 void SystemClass::InitializeWindows(int& screenWidth, int& screenHeight) {

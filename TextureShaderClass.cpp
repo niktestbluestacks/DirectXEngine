@@ -1,5 +1,4 @@
 #include "TextureShaderClass.hpp"
-#include "MyConverter.hpp"
 #include <cstdint>
 
 using namespace DirectX;
@@ -36,24 +35,15 @@ bool TextureShaderClass::Initialize(ID3D11Device* device, HWND hwnd) {
 	wchar_t psFilename[128];
 	int error;
 
-	auto vsWStrPtr = MyConverter::constCharPtrPathToWstring("../DirectXEngine/texturevs.hlsl");
-	auto psWStrPtr = MyConverter::constCharPtrPathToWstring("../DirectXEngine/textureps.hlsl");
-
-	error = wcscpy_s(vsFilename, 128, vsWStrPtr->c_str());
+	error = wcscpy_s(vsFilename, 128, L"../DirectXEngine/texturevs.hlsl");
 	if (error != 0) {
-		vsWStrPtr.reset();
-		psWStrPtr.reset();
 		return false;
 	}
 
-	error = wcscpy_s(psFilename, 128, psWStrPtr->c_str());
+	error = wcscpy_s(psFilename, 128, L"../DirectXEngine/textureps.hlsl");
 	if (error != 0) {
-		vsWStrPtr.reset();
-		psWStrPtr.reset();
 		return false;
 	}
-	vsWStrPtr.reset();
-	psWStrPtr.reset();
 
 	result = InitializeShader(device, hwnd, vsFilename, psFilename);
 	if (!result) {

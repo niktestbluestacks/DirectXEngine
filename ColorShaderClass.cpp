@@ -1,6 +1,4 @@
 #include "ColorShaderClass.hpp"
-#include "MyConverter.hpp"
-
 using namespace DirectX;
 using namespace std;
 
@@ -45,31 +43,20 @@ bool ColorShaderClass::Initialize(ID3D11Device* device, HWND hwnd) {
 	//std::wstring VSstr = std::wstring(VSFileStr.begin(), VSFileStr.end());
 	//std::wstring PSstr = std::wstring(PSFileStr.begin(), PSFileStr.end());
 
-	auto VSstr = MyConverter::constCharPtrPathToWstring("../DirectXEngine/colorvs.hlsl");
-	auto PSstr = MyConverter::constCharPtrPathToWstring("../DirectXEngine/colorps.hlsl");
-
-	error = wcscpy_s(vsFilename, 128, VSstr->c_str());
+	error = wcscpy_s(vsFilename, 128, L"../DirectXEngine/colorvs.hlsl");
 	if (error != 0)	{
-		VSstr.reset();
-		PSstr.reset();
 		return false;
 	}
 
-	error = wcscpy_s(psFilename, 128, PSstr->c_str());
+	error = wcscpy_s(psFilename, 128, L"../DirectXEngine/colorps.hlsl");
 	if (error != 0) {
-		VSstr.reset();
-		PSstr.reset();
 		return false;
 	}
 
 	result = InitializeShader(device, hwnd, vsFilename, psFilename);
 	if (!result) {
-		VSstr.reset();
-		PSstr.reset();
 		return false;
 	}
-	VSstr.reset();
-	PSstr.reset();
 	return true;
 }
 
