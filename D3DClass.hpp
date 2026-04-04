@@ -37,6 +37,9 @@ public:
 
 	void SetBackBufferRenderTarget();
 	void ResetViewport();
+
+	void TurnZBufferOn();
+	void TurnZBufferOff();
 private:
 	bool m_vsync_enabled;
 	int m_videoCardMemory;
@@ -53,6 +56,7 @@ private:
 	DirectX::XMMATRIX m_worldMatrix;
 	DirectX::XMMATRIX m_orthoMatrix;
 	D3D11_VIEWPORT m_viewport;
+	ID3D11DepthStencilState* m_depthDisabledStencilState;
 };
 
 #endif // _D3DCLASS_H_

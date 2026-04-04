@@ -29,11 +29,11 @@
     <ClCompile Include="LightShaderClass.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ModelClass.cpp" />
+    <ClCompile Include="BitmapClass.cpp" />
     <ClCompile Include="MyConverter.cpp" />
     <ClCompile Include="SystemClass.cpp" />
     <ClCompile Include="TextureClass.cpp" />
-    <None Include="TextureShaderClass.cpp" />
+    <ClCompile Include="TextureShaderClass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ApplicationClass.hpp" />
@@ -45,11 +45,11 @@
     <ClInclude Include="LightClass.hpp" />
     <ClInclude Include="LightShaderClass.hpp" />
     <ClInclude Include="Logger.hpp" />
-    <ClInclude Include="ModelClass.hpp" />
+    <ClInclude Include="BitmapClass.hpp" />
     <ClInclude Include="MyConverter.hpp" />
     <ClInclude Include="SysteamClass.hpp" />
     <ClInclude Include="TextureClass.hpp" />
-    <None Include="TextureShaderClass.hpp" />
+    <ClInclude Include="TextureShaderClass.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="colorps.hlsl" />

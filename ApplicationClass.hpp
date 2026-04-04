@@ -5,12 +5,12 @@
 // My header files.
 #include "D3DClass.hpp"
 #include "CameraClass.hpp"
-#include "ModelClass.hpp"
-#include "LightShaderClass.hpp"
-#include "LightClass.hpp"
+#include "TextureShaderClass.hpp"
+#include "BitmapClass.hpp"
+
 
 // Global constants.
-const bool FULL_SCREEN = true;
+const bool FULL_SCREEN = false;
 const bool VSYNC_ENABLED = true;
 const float SCREEN_DEPTH = 1000.0f;
 const float SCREEN_NEAR = 0.3f;
@@ -27,13 +27,13 @@ public:
 	void Shutdown();
 	bool Frame();
 private:
-	bool Render(float);
+	bool Render();
 private:
 	D3DClass* m_Direct3D;
 	CameraClass* m_Camera;
-	ModelClass* m_Model;
-	LightShaderClass* m_LightShader;
-	LightClass* m_Light;
+	BitmapClass* m_Model;
+	TextureShaderClass* m_TextureShader;
+	BitmapClass* m_Bitmap;
 };
 #endif // _APPLICATIONCLASS_HPP_
 

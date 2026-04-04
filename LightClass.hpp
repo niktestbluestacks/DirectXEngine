@@ -15,12 +15,14 @@ public:
     void SetDirection(float, float, float);
     void SetSpecularColor(float, float, float, float);
     void SetSpecularPower(float);
+    void SetPosition(float, float, float);
 
     DirectX::XMFLOAT4 GetAmbientColor();
     DirectX::XMFLOAT4 GetDiffuseColor();
     DirectX::XMFLOAT3 GetDirection();
     DirectX::XMFLOAT4 GetSpecularColor();
     float GetSpecularPower();
+    DirectX::XMFLOAT4 GetPosition();
 
 private:
     DirectX::XMFLOAT4 m_ambientColor;
@@ -28,5 +30,6 @@ private:
     DirectX::XMFLOAT3 m_direction;
     DirectX::XMFLOAT4 m_specularColor;
     float m_specularPower;
+    DirectX::XMFLOAT4 m_position;
 };
 #endif // _LIGHTCLASS_HPP_

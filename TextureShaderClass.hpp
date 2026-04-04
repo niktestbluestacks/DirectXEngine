@@ -10,8 +10,7 @@
 
 class TextureShaderClass {
 private:
-	struct MatrixBufferType
-	{
+	struct MatrixBufferType {
 		DirectX::XMMATRIX world;
 		DirectX::XMMATRIX view;
 		DirectX::XMMATRIX projection;
