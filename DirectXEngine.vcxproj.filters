@@ -121,6 +121,9 @@
     <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\TransparentShaderClass">
       <UniqueIdentifier>{276787d7-5b83-49fd-823a-8a686ff44289}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\ReflectionShaderClass">
+      <UniqueIdentifier>{1839329e-dccc-4ef9-8e80-d36353cda2f8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -228,6 +231,9 @@
     <ClCompile Include="TransparentShaderClass.cpp">
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\TransparentShaderClass</Filter>
     </ClCompile>
+    <ClCompile Include="ReflectionShaderClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\ReflectionShaderClass</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SysteamClass.hpp">
@@ -332,6 +338,9 @@
     <ClInclude Include="TransparentShaderClass.hpp">
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\TransparentShaderClass</Filter>
     </ClInclude>
+    <ClInclude Include="ReflectionShaderClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\ReflectionShaderClass</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ColorShaderClass.cpp">
@@ -417,6 +426,12 @@
     </None>
     <None Include="transparentvs.hlsl">
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\TransparentShaderClass</Filter>
+    </None>
+    <None Include="reflectionps.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\ReflectionShaderClass</Filter>
+    </None>
+    <None Include="reflectionvs.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\ReflectionShaderClass</Filter>
     </None>
   </ItemGroup>
 </Project>

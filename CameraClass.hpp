@@ -20,10 +20,14 @@ public:
 
 	void Render();
 	void GetViewMatrix(DirectX::XMMATRIX&);
+
+	void RenderReflection(float);
+	void GetReflectionViewMatrix(DirectX::XMMATRIX&);
 private:
 	float m_positionX, m_positionY, m_positionZ;
 	float m_rotationX, m_rotationY, m_rotationZ;
 	DirectX::XMMATRIX m_viewMatrix;
+	DirectX::XMMATRIX m_reflectionViewMatrix;
 };
 #endif // _CAMERACLASS_H_
 

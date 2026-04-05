@@ -7,11 +7,12 @@
 #include "InputClass.hpp"
 #include "CameraClass.hpp"
 #include "ModelClass.hpp"
+#include "RenderTextureClass.hpp"
 #include "TextureShaderClass.hpp"
-#include "TransparentShaderClass.hpp"
+#include "ReflectionShaderClass.hpp"
 
 // Global constants.
-const bool FULL_SCREEN = false;
+const bool FULL_SCREEN = true;
 const bool VSYNC_ENABLED = true;
 const float SCREEN_DEPTH = 1000.0f;
 const float SCREEN_NEAR = 0.3f;
@@ -27,16 +28,16 @@ public:
 	void Shutdown();
 	bool Frame(InputClass*);
 private:
-	bool Render();
-	bool RenderSceneToTexture(float rotation);
+	bool RenderReflectionToTexture(float);
+	bool Render(float);
 
 private:
     D3DClass* m_Direct3D;
     CameraClass* m_Camera;
-    ModelClass *m_Model1, *m_Model2;
-
+    ModelClass *m_CubeModel, *m_FloorModel;
+	RenderTextureClass* m_RenderTexture;
 	TextureShaderClass* m_TextureShader;
-	TransparentShaderClass* m_TransparentShader;
+	ReflectionShaderClass* m_ReflectionShader;
 };
 #endif // _APPLICATIONCLASS_HPP_
 
