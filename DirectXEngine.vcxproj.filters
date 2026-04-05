@@ -124,6 +124,12 @@
     <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\ReflectionShaderClass">
       <UniqueIdentifier>{1839329e-dccc-4ef9-8e80-d36353cda2f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\WaterShaderClass">
+      <UniqueIdentifier>{336c9a11-21f9-48c3-843f-45e585ba5708}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\RefrectionShaderClass">
+      <UniqueIdentifier>{3b47e5cc-57e4-469a-99d2-35d70692363b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -201,9 +207,6 @@
     <ClCompile Include="SpecMapShaderClass.cpp">
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\SpecMapShaderClass</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderManagerClass.cpp">
-      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass</Filter>
-    </ClCompile>
     <ClCompile Include="FrustumClass.cpp">
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\FrustumClass</Filter>
     </ClCompile>
@@ -233,6 +236,12 @@
     </ClCompile>
     <ClCompile Include="ReflectionShaderClass.cpp">
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\ReflectionShaderClass</Filter>
+    </ClCompile>
+    <ClCompile Include="WaterShaderClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\WaterShaderClass</Filter>
+    </ClCompile>
+    <ClCompile Include="RefractionShaderClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\RefrectionShaderClass</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -308,9 +317,6 @@
     <ClInclude Include="SpecMapShaderClass.hpp">
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\SpecMapShaderClass</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderManagerClass.hpp">
-      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass</Filter>
-    </ClInclude>
     <ClInclude Include="FrustumClass.hpp">
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\FrustumClass</Filter>
     </ClInclude>
@@ -340,6 +346,12 @@
     </ClInclude>
     <ClInclude Include="ReflectionShaderClass.hpp">
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\ReflectionShaderClass</Filter>
+    </ClInclude>
+    <ClInclude Include="WaterShaderClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\WaterShaderClass</Filter>
+    </ClInclude>
+    <ClInclude Include="RefractionShaderClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\RefrectionShaderClass</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -432,6 +444,24 @@
     </None>
     <None Include="reflectionvs.hlsl">
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\ReflectionShaderClass</Filter>
+    </None>
+    <None Include="waterps.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\WaterShaderClass</Filter>
+    </None>
+    <None Include="watervs.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\WaterShaderClass</Filter>
+    </None>
+    <None Include="refractionps.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\RefrectionShaderClass</Filter>
+    </None>
+    <None Include="refractionvs.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\RefrectionShaderClass</Filter>
+    </None>
+    <None Include="ShaderManagerClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass</Filter>
+    </None>
+    <None Include="ShaderManagerClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass</Filter>
     </None>
   </ItemGroup>
 </Project>
