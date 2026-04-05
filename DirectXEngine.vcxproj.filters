@@ -109,6 +109,18 @@
     <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\DisplayPlaneClass">
       <UniqueIdentifier>{238cd9b5-6ccf-4cc2-9508-7fafb6b73914}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\FogShaderClass">
+      <UniqueIdentifier>{14ec9144-668e-42ab-af08-aebaf789080b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\ClipPlaneShaderClass">
+      <UniqueIdentifier>{b8ca2341-356b-4c13-b32a-9d4a2492c8b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\TranslateShaderClass">
+      <UniqueIdentifier>{1cc5efd8-3fa0-46e8-b998-44fc374c9ee2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\TransparentShaderClass">
+      <UniqueIdentifier>{276787d7-5b83-49fd-823a-8a686ff44289}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -204,6 +216,18 @@
     <ClCompile Include="DisplayPlaneClass.cpp">
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\DisplayPlaneClass</Filter>
     </ClCompile>
+    <ClCompile Include="FogShaderClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\FogShaderClass</Filter>
+    </ClCompile>
+    <ClCompile Include="ClipPlaneShaderClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\ClipPlaneShaderClass</Filter>
+    </ClCompile>
+    <ClCompile Include="TranslateShaderClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\TranslateShaderClass</Filter>
+    </ClCompile>
+    <ClCompile Include="TransparentShaderClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\TransparentShaderClass</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SysteamClass.hpp">
@@ -296,6 +320,18 @@
     <ClInclude Include="DisplayPlaneClass.hpp">
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\DisplayPlaneClass</Filter>
     </ClInclude>
+    <ClInclude Include="FogShaderClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\FogShaderClass</Filter>
+    </ClInclude>
+    <ClInclude Include="ClipPlaneShaderClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\ClipPlaneShaderClass</Filter>
+    </ClInclude>
+    <ClInclude Include="TranslateShaderClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\TranslateShaderClass</Filter>
+    </ClInclude>
+    <ClInclude Include="TransparentShaderClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\TransparentShaderClass</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ColorShaderClass.cpp">
@@ -357,6 +393,30 @@
     </None>
     <None Include="specmapvs.hlsl">
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\SpecMapShaderClass</Filter>
+    </None>
+    <None Include="fogps.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\FogShaderClass</Filter>
+    </None>
+    <None Include="fogvs.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\FogShaderClass</Filter>
+    </None>
+    <None Include="clipplaneps.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\ClipPlaneShaderClass</Filter>
+    </None>
+    <None Include="clipplanevs.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\ClipPlaneShaderClass</Filter>
+    </None>
+    <None Include="translateps.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\TranslateShaderClass</Filter>
+    </None>
+    <None Include="translatevs.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\TranslateShaderClass</Filter>
+    </None>
+    <None Include="transparentps.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\TransparentShaderClass</Filter>
+    </None>
+    <None Include="transparentvs.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\TransparentShaderClass</Filter>
     </None>
   </ItemGroup>
 </Project>

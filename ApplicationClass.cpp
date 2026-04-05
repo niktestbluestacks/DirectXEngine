@@ -5,21 +5,19 @@ using namespace DirectX;
 ApplicationClass::ApplicationClass() {
 	m_Direct3D = nullptr;
 	m_Camera = nullptr;
-	m_Model = nullptr;
+	m_Model1 = nullptr;
+	m_Model2 = nullptr;
 	m_TextureShader = nullptr;
-	m_RenderTexture = nullptr;
-	m_DisplayPlane = nullptr;
+	m_TransparentShader = nullptr;
 }
 
-
 ApplicationClass::ApplicationClass(const ApplicationClass& other) {}
-
 
 ApplicationClass::~ApplicationClass() {}
 
 bool ApplicationClass::Initialize(int screenWidth, int screenHeight, HWND hwnd) {
 	bool result;
-	char modelFilename[128], textureFilename1[128], renderString[32];
+	char modelFilename[128], textureFilename1[128], textureFilename2[128];
 	m_Direct3D = new D3DClass;
 
 	result = m_Direct3D->Initialize(screenWidth, screenHeight, VSYNC_ENABLED, hwnd, FULL_SCREEN, SCREEN_DEPTH, SCREEN_NEAR);
@@ -31,13 +29,21 @@ bool ApplicationClass::Initialize(int screenWidth, int screenHeight, HWND hwnd) 
 	m_Camera->SetPosition(0.0f, 0.0f, -10.0f);
 	m_Camera->Render();
 
-	strcpy_s(modelFilename, "../DirectXEngine/TestingTextures/Sphere.txt");
+	strcpy_s(modelFilename, "../DirectXEngine/TestingTextures/Cube.txt");
 
 	strcpy_s(textureFilename1, "../DirectXEngine/TestingTextures/sprite03.tga");
+	strcpy_s(textureFilename2, "../DirectXEngine/TestingTextures/sprite04.tga");
 
-	m_Model = new ModelClass;
-	result = m_Model->Initialize(m_Direct3D->GetDevice(), m_Direct3D->GetDeviceContext(),
+	m_Model1 = new ModelClass;
+	result = m_Model1->Initialize(m_Direct3D->GetDevice(), m_Direct3D->GetDeviceContext(),
 		modelFilename, textureFilename1);
+	if (!result) {
+		return false;
+	}
+
+	m_Model2 = new ModelClass;
+
+	result = m_Model2->Initialize(m_Direct3D->GetDevice(), m_Direct3D->GetDeviceContext(), modelFilename, textureFilename2);
 	if (!result) {
 		return false;
 	}
@@ -50,45 +56,35 @@ bool ApplicationClass::Initialize(int screenWidth, int screenHeight, HWND hwnd) 
 		return false;
 	}
 
-	m_RenderTexture = new RenderTextureClass;
+	m_TransparentShader = new TransparentShaderClass;
 
-	result = m_RenderTexture->Initialize(m_Direct3D->GetDevice(), 256, 256, SCREEN_DEPTH, SCREEN_NEAR, 1);
+	result = m_TransparentShader->Initialize(m_Direct3D->GetDevice(), hwnd);
 	if (!result) {
-		return false;
-	}
-	m_DisplayPlane = new DisplayPlaneClass;
-
-	result = m_DisplayPlane->Initialize(m_Direct3D->GetDevice(), 1.0f, 1.0f);
-	if (!result) {
+		MessageBox(hwnd, L"Could not initialize the transparent shader object.", L"Error", MB_OK);
 		return false;
 	}
 
 	return true;
 }
 
+
 void ApplicationClass::Shutdown() {
-	if (m_DisplayPlane) {
-		m_DisplayPlane->Shutdown();
-		delete m_DisplayPlane;
-		m_DisplayPlane = nullptr;
+	if (m_TransparentShader) {
+		m_TransparentShader->Shutdown();
+		delete m_TransparentShader;
+		m_TransparentShader = nullptr;
 	}
 
-	if (m_RenderTexture) {
-		m_RenderTexture->Shutdown();
-		delete m_RenderTexture;
-		m_RenderTexture = nullptr;
+	if (m_Model1) {
+		m_Model1->Shutdown();
+		delete m_Model1;
+		m_Model1 = nullptr;
 	}
 
-	if (m_TextureShader) {
-		m_TextureShader->Shutdown();
-		delete m_TextureShader;
-		m_TextureShader = nullptr;
-	}
-
-	if (m_Model) {
-		m_Model->Shutdown();
-		delete m_Model;
-		m_Model = nullptr;
+	if (m_Model2) {
+		m_Model2->Shutdown();
+		delete m_Model2;
+		m_Model2 = nullptr;
 	}
 
 	if (m_Camera) {
@@ -106,104 +102,55 @@ void ApplicationClass::Shutdown() {
 }
 
 bool ApplicationClass::Frame(InputClass* Input) {
-	static float rotation = 0.0f;
-	bool result;
 
-
+	
 	if (Input->IsEscapePressed()) {
 		return false;
 	}
 
-	rotation -= 0.0174532925f * 0.25f;
-	if (rotation < 0.0f) {
-		rotation += 360.0f;
-	}
-
-	result = RenderSceneToTexture(rotation);
+	bool result = Render();
 	if (!result) {
 		return false;
 	}
-
-	result = Render();
-	if (!result) {
-		return false;
-	}
-
-	return true;
-}
-
-bool ApplicationClass::RenderSceneToTexture(float rotation) {
-	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
-	bool result;
-
-	m_RenderTexture->SetRenderTarget(m_Direct3D->GetDeviceContext());
-	m_RenderTexture->ClearRenderTarget(m_Direct3D->GetDeviceContext(), 0.0f, 0.5f, 1.0f, 1.0f);
-
-	m_Camera->SetPosition(0.0f, 0.0f, -5.0f);
-	m_Camera->Render();
-
-	m_Direct3D->GetWorldMatrix(worldMatrix);
-	m_Camera->GetViewMatrix(viewMatrix);
-	m_RenderTexture->GetProjectionMatrix(projectionMatrix);
-
-	worldMatrix = XMMatrixRotationY(rotation);
-
-	m_Model->Render(m_Direct3D->GetDeviceContext());
-
-	result = m_TextureShader->Render(m_Direct3D->GetDeviceContext(), m_Model->GetIndexCount(),
-		worldMatrix, viewMatrix, projectionMatrix, m_Model->GetTexture());
-	if (!result) {
-		return false;
-	}
-
-	m_Direct3D->SetBackBufferRenderTarget();
-	m_Direct3D->ResetViewport();
 
 	return true;
 }
 
 bool ApplicationClass::Render() {
 	XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
+	float blendAmount;
 	bool result;
 
-	m_Direct3D->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
+	blendAmount = 0.5f;
 
-	m_Camera->SetPosition(0.0f, 0.0f, -10.0f);
-	m_Camera->Render();
+	m_Direct3D->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
 
 	m_Direct3D->GetWorldMatrix(worldMatrix);
 	m_Camera->GetViewMatrix(viewMatrix);
 	m_Direct3D->GetProjectionMatrix(projectionMatrix);
 
-	worldMatrix = XMMatrixTranslation(0.0f, 1.5f, 0.0f);
+	m_Model1->Render(m_Direct3D->GetDeviceContext());
 
-	m_DisplayPlane->Render(m_Direct3D->GetDeviceContext());
-
-	result = m_TextureShader->Render(m_Direct3D->GetDeviceContext(), m_DisplayPlane->GetIndexCount(),
-		worldMatrix, viewMatrix, projectionMatrix, m_RenderTexture->GetShaderResourceView());
+	result = m_TextureShader->Render(m_Direct3D->GetDeviceContext(), m_Model1->GetIndexCount(),
+		worldMatrix, viewMatrix, projectionMatrix, m_Model1->GetTexture());
 	if (!result) {
 		return false;
 	}
 
-	worldMatrix = XMMatrixTranslation(-1.5f, -1.5f, 0.0f);
+	worldMatrix = XMMatrixTranslation(1.0f, 0.0f, -1.0f);
 
-	m_DisplayPlane->Render(m_Direct3D->GetDeviceContext());
+	m_Direct3D->EnableAlphaBlending();
 
-	result = m_TextureShader->Render(m_Direct3D->GetDeviceContext(), m_DisplayPlane->GetIndexCount(),
-		worldMatrix, viewMatrix, projectionMatrix, m_RenderTexture->GetShaderResourceView());
+	m_Model2->Render(m_Direct3D->GetDeviceContext());
+
+	result = m_TransparentShader->Render(m_Direct3D->GetDeviceContext(), m_Model2->GetIndexCount(),
+		worldMatrix, viewMatrix, projectionMatrix, m_Model2->GetTexture(), blendAmount);
 	if (!result) {
 		return false;
 	}
 
-	worldMatrix = XMMatrixTranslation(1.5f, -1.5f, 0.0f);
-
-	m_DisplayPlane->Render(m_Direct3D->GetDeviceContext());
-
-	result = m_TextureShader->Render(m_Direct3D->GetDeviceContext(), m_DisplayPlane->GetIndexCount(),
-		worldMatrix, viewMatrix, projectionMatrix, m_RenderTexture->GetShaderResourceView());
-	if (!result) {
-		return false;
-	}
+	// Turn off alpha blending.
+	m_Direct3D->DisableAlphaBlending();
 
 	m_Direct3D->EndScene();
 

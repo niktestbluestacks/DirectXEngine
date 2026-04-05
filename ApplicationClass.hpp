@@ -8,18 +8,15 @@
 #include "CameraClass.hpp"
 #include "ModelClass.hpp"
 #include "TextureShaderClass.hpp"
-#include "RenderTextureClass.hpp"
-#include "DisplayPlaneClass.hpp"
-
+#include "TransparentShaderClass.hpp"
 
 // Global constants.
-const bool FULL_SCREEN = true;
+const bool FULL_SCREEN = false;
 const bool VSYNC_ENABLED = true;
 const float SCREEN_DEPTH = 1000.0f;
 const float SCREEN_NEAR = 0.3f;
 
 // Class name: ApplicationClass
-
 class ApplicationClass {
 public:
 	ApplicationClass();
@@ -36,10 +33,10 @@ private:
 private:
     D3DClass* m_Direct3D;
     CameraClass* m_Camera;
-    ModelClass* m_Model;
+    ModelClass *m_Model1, *m_Model2;
+
 	TextureShaderClass* m_TextureShader;
-	RenderTextureClass* m_RenderTexture;
-	DisplayPlaneClass* m_DisplayPlane;
+	TransparentShaderClass* m_TransparentShader;
 };
 #endif // _APPLICATIONCLASS_HPP_
 
