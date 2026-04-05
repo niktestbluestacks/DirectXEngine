@@ -17,7 +17,7 @@ ModelClass::~ModelClass() {}
 
 
 bool ModelClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext,
-    char* modelFilename, char* textureFilename) {
+    char* modelFilename, char* textureFilename1, char* textureFilename2) {
 
     bool result;
 
@@ -32,7 +32,7 @@ bool ModelClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceCon
         return false;
     }
 
-    result = LoadTextures(device, deviceContext, textureFilename);
+    result = LoadTextures(device, deviceContext, textureFilename1, textureFilename2);
     if (!result) {
         return false;
     }
@@ -58,8 +58,8 @@ int ModelClass::GetIndexCount() {
     return m_indexCount;
 }
 
-ID3D11ShaderResourceView* ModelClass::GetTexture() {
-    return m_Textures->GetTexture();
+ID3D11ShaderResourceView* ModelClass::GetTexture(int index) {
+    return m_Textures[index].GetTexture();
 }
 
 bool ModelClass::InitializeBuffers(ID3D11Device* device) {
@@ -78,8 +78,6 @@ bool ModelClass::InitializeBuffers(ID3D11Device* device) {
         vertices[i].position = XMFLOAT3(m_model[i].x, m_model[i].y, m_model[i].z);
         vertices[i].texture = XMFLOAT2(m_model[i].tu, m_model[i].tv);
         vertices[i].normal = XMFLOAT3(m_model[i].nx, m_model[i].ny, m_model[i].nz);
-        vertices[i].tangent = XMFLOAT3(m_model[i].tx, m_model[i].ty, m_model[i].tz);
-        vertices[i].binormal = XMFLOAT3(m_model[i].bx, m_model[i].by, m_model[i].bz);
 
         indices[i] = i;
     }
@@ -157,14 +155,20 @@ void ModelClass::RenderBuffers(ID3D11DeviceContext* deviceContext) {
 }
 
 bool ModelClass::LoadTextures(ID3D11Device* device, ID3D11DeviceContext* deviceContext,
-    char* filename) {
+    char* textureFilename1, char* textureFilename2) {
     bool result;
 
 
-    m_Textures = new TextureClass;
+    m_Textures = new TextureClass[2];
 
-    result = m_Textures->Initialize(device, deviceContext, filename);
+    result = m_Textures[0].Initialize(device, deviceContext, textureFilename1);
     if (!result) {
+        return false;
+    }
+
+    result = m_Textures[1].Initialize(device, deviceContext, textureFilename2);
+    if (!result)
+    {
         return false;
     }
 
@@ -173,9 +177,10 @@ bool ModelClass::LoadTextures(ID3D11Device* device, ID3D11DeviceContext* deviceC
 
 void ModelClass::ReleaseTextures() {
     if (m_Textures) {
-        m_Textures->Shutdown();
+        m_Textures[0].Shutdown();
+        m_Textures[1].Shutdown();
 
-        delete m_Textures;
+        delete[] m_Textures;
         m_Textures = nullptr;
     }
 

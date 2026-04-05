@@ -127,7 +127,10 @@
     <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\WaterShaderClass">
       <UniqueIdentifier>{336c9a11-21f9-48c3-843f-45e585ba5708}</UniqueIdentifier>
     </Filter>
-    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\RefrectionShaderClass">
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\GlassShaderClass">
+      <UniqueIdentifier>{d29166d8-580e-4106-ad68-433e7ba42d86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\RefractionShaderClass">
       <UniqueIdentifier>{3b47e5cc-57e4-469a-99d2-35d70692363b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -241,7 +244,10 @@
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\WaterShaderClass</Filter>
     </ClCompile>
     <ClCompile Include="RefractionShaderClass.cpp">
-      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\RefrectionShaderClass</Filter>
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\RefractionShaderClass</Filter>
+    </ClCompile>
+    <ClCompile Include="GlassShaderClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\GlassShaderClass</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -351,7 +357,10 @@
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\WaterShaderClass</Filter>
     </ClInclude>
     <ClInclude Include="RefractionShaderClass.hpp">
-      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\RefrectionShaderClass</Filter>
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\RefractionShaderClass</Filter>
+    </ClInclude>
+    <ClInclude Include="GlassShaderClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\GlassShaderClass</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -452,16 +461,22 @@
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\WaterShaderClass</Filter>
     </None>
     <None Include="refractionps.hlsl">
-      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\RefrectionShaderClass</Filter>
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\RefractionShaderClass</Filter>
     </None>
     <None Include="refractionvs.hlsl">
-      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\RefrectionShaderClass</Filter>
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\RefractionShaderClass</Filter>
     </None>
     <None Include="ShaderManagerClass.hpp">
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass</Filter>
     </None>
     <None Include="ShaderManagerClass.cpp">
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass</Filter>
+    </None>
+    <None Include="glassps.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\GlassShaderClass</Filter>
+    </None>
+    <None Include="glassvs.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\GlassShaderClass</Filter>
     </None>
   </ItemGroup>
 </Project>
