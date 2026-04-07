@@ -7,10 +7,7 @@ ApplicationClass::ApplicationClass() {
     m_Direct3D = nullptr;
     m_Camera = nullptr;
     m_Model = nullptr;
-    m_WindowModel = nullptr;
-    m_RenderTexture = nullptr;
-    m_TextureShader = nullptr;
-    m_GlassShader = nullptr;
+	m_DepthShader = nullptr;
 }
 
 ApplicationClass::ApplicationClass(const ApplicationClass& other) {}
@@ -32,57 +29,24 @@ bool ApplicationClass::Initialize(int screenWidth, int screenHeight, HWND hwnd) 
 
     m_Camera = new CameraClass;
 
-    m_Camera->SetPosition(0.0f, 0.0f, -5.0f);
+    m_Camera->SetPosition(0.0f, 2.0f, -10.0f);
     m_Camera->Render();
 
-    strcpy_s(modelFilename, "../DirectXEngine/TestingTextures/Cube.txt");
-
-    strcpy_s(textureFilename1, "../DirectXEngine/TestingTextures/sprite01.tga");
-    strcpy_s(textureFilename2, "../DirectXEngine/TestingTextures/normal03.tga");
+    strcpy_s(modelFilename, "../DirectXEngine/TestingTextures/Floor.txt");
 
     m_Model = new ModelClass;
 
-    result = m_Model->Initialize(m_Direct3D->GetDevice(), m_Direct3D->GetDeviceContext(), modelFilename, textureFilename1, textureFilename2);
+    result = m_Model->Initialize(m_Direct3D->GetDevice(), m_Direct3D->GetDeviceContext(), modelFilename);
     if (!result) {
-        MessageBox(hwnd, L"Could not initialize the cube model object.", L"Error", MB_OK);
+        MessageBox(hwnd, L"Could not initialize the model object.", L"Error", MB_OK);
         return false;
     }
 
-    strcpy_s(modelFilename, "../DirectXEngine/TestingTextures/Square.txt");
+    m_DepthShader = new DepthShaderClass;
 
-    strcpy_s(textureFilename1, "../DirectXEngine/TestingTextures/icebump01.tga");
-    strcpy_s(textureFilename2, "../DirectXEngine/TestingTextures/normal03.tga");
-
-    m_WindowModel = new ModelClass;
-
-    result = m_WindowModel->Initialize(m_Direct3D->GetDevice(), m_Direct3D->GetDeviceContext(),
-        modelFilename, textureFilename1, textureFilename2);
+    result = m_DepthShader->Initialize(m_Direct3D->GetDevice(), hwnd);
     if (!result) {
-        MessageBox(hwnd, L"Could not initialize the window model object.", L"Error", MB_OK);
-        return false;
-    }
-
-    m_RenderTexture = new RenderTextureClass;
-
-    result = m_RenderTexture->Initialize(m_Direct3D->GetDevice(), screenWidth, screenHeight, SCREEN_DEPTH, SCREEN_NEAR, 1);
-    if (!result) {
-        MessageBox(hwnd, L"Could not initialize the render texture object.", L"Error", MB_OK);
-        return false;
-    }
-
-    m_TextureShader = new TextureShaderClass;
-
-    result = m_TextureShader->Initialize(m_Direct3D->GetDevice(), hwnd);
-    if (!result) {
-        MessageBox(hwnd, L"Could not initialize the texture shader object.", L"Error", MB_OK);
-        return false;
-    }
-
-    m_GlassShader = new GlassShaderClass;
-
-    result = m_GlassShader->Initialize(m_Direct3D->GetDevice(), hwnd);
-    if (!result) {
-        MessageBox(hwnd, L"Could not initialize the glass shader object.", L"Error", MB_OK);
+        MessageBox(hwnd, L"Could not initialize the depth shader object.", L"Error", MB_OK);
         return false;
     }
 
@@ -91,28 +55,10 @@ bool ApplicationClass::Initialize(int screenWidth, int screenHeight, HWND hwnd) 
 
 
 void ApplicationClass::Shutdown() {
-    if (m_GlassShader) {
-        m_GlassShader->Shutdown();
-        delete m_GlassShader;
-        m_GlassShader = nullptr;
-    }
-
-    if (m_TextureShader) {
-        m_TextureShader->Shutdown();
-        delete m_TextureShader;
-        m_TextureShader = nullptr;
-    }
-
-    if (m_RenderTexture) {
-        m_RenderTexture->Shutdown();
-        delete m_RenderTexture;
-        m_RenderTexture = nullptr;
-    }
-
-    if (m_WindowModel) {
-        m_WindowModel->Shutdown();
-        delete m_WindowModel;
-        m_WindowModel = nullptr;
+    if (m_DepthShader) {
+        m_DepthShader->Shutdown();
+        delete m_DepthShader;
+        m_DepthShader = nullptr;
     }
 
     if (m_Model) {
@@ -150,7 +96,7 @@ bool ApplicationClass::Frame(InputClass* Input) {
         rotation += 360.0f;
     }
 
-    result = RenderSceneToTexture(rotation);
+    /*result = RenderSceneToTexture(rotation);
     if (!result) {
         return false;
     }
@@ -158,12 +104,17 @@ bool ApplicationClass::Frame(InputClass* Input) {
     result = Render(rotation);
     if (!result) {
         return false;
+    }*/
+
+    result = Render();
+    if (!result) {
+        return false;
     }
 
     return true;
 }
 
-bool ApplicationClass::RenderSceneToTexture(float rotation) {
+/*bool ApplicationClass::RenderSceneToTexture(float rotation) {
     XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
     bool result;
 
@@ -222,6 +173,30 @@ bool ApplicationClass::Render(float rotation) {
     result = m_GlassShader->Render(m_Direct3D->GetDeviceContext(), m_WindowModel->GetIndexCount(),
         worldMatrix, viewMatrix, projectionMatrix, m_WindowModel->GetTexture(0),
         m_WindowModel->GetTexture(1), m_RenderTexture->GetShaderResourceView(), refractionScale);
+    if (!result) {
+        return false;
+    }
+
+    m_Direct3D->EndScene();
+
+    return true;
+}*/
+
+bool ApplicationClass::Render() {
+    XMMATRIX worldMatrix, viewMatrix, projectionMatrix;
+    bool result;
+
+
+    m_Direct3D->BeginScene(0.0f, 0.0f, 0.0f, 1.0f);
+
+    m_Direct3D->GetWorldMatrix(worldMatrix);
+    m_Camera->GetViewMatrix(viewMatrix);
+    m_Direct3D->GetProjectionMatrix(projectionMatrix);
+
+    m_Model->Render(m_Direct3D->GetDeviceContext());
+
+    result = m_DepthShader->Render(m_Direct3D->GetDeviceContext(), m_Model->GetIndexCount(),
+        worldMatrix, viewMatrix, projectionMatrix);
     if (!result) {
         return false;
     }

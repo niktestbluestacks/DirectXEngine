@@ -6,7 +6,6 @@ using namespace std;
 ModelClass::ModelClass() {
     m_vertexBuffer = nullptr;
     m_indexBuffer = nullptr;
-    m_Textures = nullptr;
     m_model = nullptr;
 }
 
@@ -17,7 +16,7 @@ ModelClass::~ModelClass() {}
 
 
 bool ModelClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext,
-    char* modelFilename, char* textureFilename1, char* textureFilename2) {
+    char* modelFilename) {
 
     bool result;
 
@@ -32,17 +31,12 @@ bool ModelClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceCon
         return false;
     }
 
-    result = LoadTextures(device, deviceContext, textureFilename1, textureFilename2);
-    if (!result) {
-        return false;
-    }
-
     return true;
 }
 
 
 void ModelClass::Shutdown() {
-    ReleaseTextures();
+    //ReleaseTextures();
     ShutdownBuffers();
     ReleaseModel();
     return;
@@ -58,9 +52,9 @@ int ModelClass::GetIndexCount() {
     return m_indexCount;
 }
 
-ID3D11ShaderResourceView* ModelClass::GetTexture(int index) {
+/*ID3D11ShaderResourceView* ModelClass::GetTexture(int index) {
     return m_Textures[index].GetTexture();
-}
+}*/
 
 bool ModelClass::InitializeBuffers(ID3D11Device* device) {
     VertexType* vertices;
@@ -154,7 +148,7 @@ void ModelClass::RenderBuffers(ID3D11DeviceContext* deviceContext) {
     return;
 }
 
-bool ModelClass::LoadTextures(ID3D11Device* device, ID3D11DeviceContext* deviceContext,
+/*bool ModelClass::LoadTextures(ID3D11Device* device, ID3D11DeviceContext* deviceContext,
     char* textureFilename1, char* textureFilename2) {
     bool result;
 
@@ -185,7 +179,7 @@ void ModelClass::ReleaseTextures() {
     }
 
     return;
-}
+}*/
 
 
 bool ModelClass::LoadModel(char* filename) {
