@@ -133,6 +133,21 @@
     <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\RefractionShaderClass">
       <UniqueIdentifier>{3b47e5cc-57e4-469a-99d2-35d70692363b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\DepthShaderClass">
+      <UniqueIdentifier>{9d1d296f-a74f-4d06-8928-5fb940de9876}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\BlurShaderClass">
+      <UniqueIdentifier>{24b3d3b8-1bc7-4c08-9cc2-c9ee49e7c146}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\OrthoWindowClass">
+      <UniqueIdentifier>{4a822336-1ece-48c1-a9bf-791fd354fb3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\BlurClass">
+      <UniqueIdentifier>{880a4ab4-dfa0-4827-bd7e-1a6c6afcd669}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\FadeShaderClass">
+      <UniqueIdentifier>{f74c76c8-4d17-4d0b-9c66-1fd063606ef3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -249,6 +264,21 @@
     <ClCompile Include="GlassShaderClass.cpp">
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\GlassShaderClass</Filter>
     </ClCompile>
+    <ClCompile Include="DepthShaderClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\DepthShaderClass</Filter>
+    </ClCompile>
+    <ClCompile Include="BlurShaderClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\BlurShaderClass</Filter>
+    </ClCompile>
+    <ClCompile Include="OrthoWindowClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\OrthoWindowClass</Filter>
+    </ClCompile>
+    <ClCompile Include="BlurClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\BlurClass</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeShaderClass.cpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\FadeShaderClass</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SysteamClass.hpp">
@@ -361,6 +391,21 @@
     </ClInclude>
     <ClInclude Include="GlassShaderClass.hpp">
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\GlassShaderClass</Filter>
+    </ClInclude>
+    <ClInclude Include="DepthShaderClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\DepthShaderClass</Filter>
+    </ClInclude>
+    <ClInclude Include="BlurShaderClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\BlurShaderClass</Filter>
+    </ClInclude>
+    <ClInclude Include="OrthoWindowClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\OrthoWindowClass</Filter>
+    </ClInclude>
+    <ClInclude Include="BlurClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\BlurClass</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeShaderClass.hpp">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\FadeShaderClass</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -477,6 +522,24 @@
     </None>
     <None Include="glassvs.hlsl">
       <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\GlassShaderClass</Filter>
+    </None>
+    <None Include="depthps.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\DepthShaderClass</Filter>
+    </None>
+    <None Include="depthvs.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\DepthShaderClass</Filter>
+    </None>
+    <None Include="blurps.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\BlurShaderClass</Filter>
+    </None>
+    <None Include="blurvs.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\BlurShaderClass</Filter>
+    </None>
+    <None Include="fadevs.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\FadeShaderClass</Filter>
+    </None>
+    <None Include="fadeps.hlsl">
+      <Filter>DX3D\WinMain\SystemClass\ApplicationClass\ShaderManagerClass\Shaders\FadeShaderClass</Filter>
     </None>
   </ItemGroup>
 </Project>

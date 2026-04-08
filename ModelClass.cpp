@@ -16,7 +16,7 @@ ModelClass::~ModelClass() {}
 
 
 bool ModelClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext,
-    char* modelFilename) {
+    char* modelFilename, char* textureFilename) {
 
     bool result;
 
@@ -31,12 +31,21 @@ bool ModelClass::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceCon
         return false;
     }
 
+    result = LoadTexture(device, deviceContext, textureFilename);
+    if (!result) {
+        return false;
+    }
+
     return true;
+}
+
+ID3D11ShaderResourceView* ModelClass::GetTexture() {
+    return m_Texture->GetTexture();
 }
 
 
 void ModelClass::Shutdown() {
-    //ReleaseTextures();
+    ReleaseTexture();
     ShutdownBuffers();
     ReleaseModel();
     return;
@@ -181,6 +190,26 @@ void ModelClass::ReleaseTextures() {
     return;
 }*/
 
+
+bool ModelClass::LoadTexture(ID3D11Device* device, ID3D11DeviceContext* deviceContext, char* textureFilename1) {
+    bool result;
+
+    m_Texture = new TextureClass;
+
+    result = m_Texture->Initialize(device, deviceContext, textureFilename1);
+    if (!result)
+    {
+        return false;
+    }
+}
+
+void ModelClass::ReleaseTexture() {
+    if (m_Texture) {
+        m_Texture->Shutdown();
+        delete m_Texture;
+        m_Texture = nullptr;
+    }
+}
 
 bool ModelClass::LoadModel(char* filename) {
     ifstream fin;

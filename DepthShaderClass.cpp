@@ -1,4 +1,7 @@
 #include "DepthShaderClass.hpp"
+#include <cstdint>
+
+typedef uint64_t ui64;
 
 using namespace DirectX;
 using namespace std;
@@ -175,7 +178,7 @@ void DepthShaderClass::ShutdownShader() {
 
 void DepthShaderClass::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND hwnd, WCHAR* shaderFilename) {
     char* compileErrors;
-    unsigned long long bufferSize, i;
+    ui64 bufferSize, i;
     ofstream fout;
 
 
@@ -199,7 +202,9 @@ void DepthShaderClass::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND h
     return;
 }
 
-bool DepthShaderClass::SetShaderParameters(ID3D11DeviceContext* deviceContext, XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix) {
+bool DepthShaderClass::SetShaderParameters(ID3D11DeviceContext* deviceContext,
+    XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix) {
+    
     HRESULT result;
     D3D11_MAPPED_SUBRESOURCE mappedResource;
     unsigned int bufferNumber;

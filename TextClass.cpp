@@ -54,7 +54,7 @@ bool TextClass::InitializeBuffers(ID3D11Device* device, ID3D11DeviceContext* dev
     int positionX, int positionY, float red, float green, float blue) {
 
     VertexType* vertices;
-    unsigned long* indices;
+    unsigned int* indices;
     D3D11_BUFFER_DESC vertexBufferDesc, indexBufferDesc;
     D3D11_SUBRESOURCE_DATA vertexData, indexData;
     HRESULT result;
@@ -65,7 +65,7 @@ bool TextClass::InitializeBuffers(ID3D11Device* device, ID3D11DeviceContext* dev
 
     vertices = new VertexType[m_vertexCount];
 
-    indices = new unsigned long[m_indexCount];
+    indices = new unsigned int[m_indexCount];
 
     memset(vertices, 0, (sizeof(VertexType) * m_vertexCount));
 
@@ -94,7 +94,7 @@ bool TextClass::InitializeBuffers(ID3D11Device* device, ID3D11DeviceContext* dev
 
     // Set up the description of the static index buffer.
     indexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-    indexBufferDesc.ByteWidth = sizeof(unsigned long) * m_indexCount;
+    indexBufferDesc.ByteWidth = sizeof(unsigned int) * m_indexCount;
     indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
     indexBufferDesc.CPUAccessFlags = 0;
     indexBufferDesc.MiscFlags = 0;

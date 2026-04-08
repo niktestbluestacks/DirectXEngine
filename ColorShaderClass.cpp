@@ -1,4 +1,8 @@
 #include "ColorShaderClass.hpp"
+#include <cstdint>
+
+typedef uint64_t ui64;
+
 using namespace DirectX;
 using namespace std;
 
@@ -210,7 +214,7 @@ void ColorShaderClass::ShutdownShader() {
 void ColorShaderClass::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND hwnd, WCHAR* shaderFilename)
 {
 	char* compileErrors;
-	unsigned long long bufferSize;
+	ui64 bufferSize;
 	ofstream fout;
 
 
@@ -220,7 +224,7 @@ void ColorShaderClass::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND h
 
 	fout.open("shader-error.txt");
 
-	for (unsigned long long i = 0; i < bufferSize; i++) {
+	for (ui64 i = 0; i < bufferSize; i++) {
 		fout << compileErrors[i];
 	}
 

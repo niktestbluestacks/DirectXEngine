@@ -1,4 +1,7 @@
 #include "FogShaderClass.hpp"
+#include <cstdint>
+
+typedef uint64_t ui64;
 
 using namespace DirectX;
 using namespace std;
@@ -229,7 +232,7 @@ void FogShaderClass::ShutdownShader() {
 
 void FogShaderClass::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND hwnd, WCHAR* shaderFilename) {
     char* compileErrors;
-    unsigned long long bufferSize, i;
+    ui64 bufferSize, i;
     ofstream fout;
 
 

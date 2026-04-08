@@ -1,4 +1,7 @@
 #include "ClipPlaneShaderClass.hpp"
+#include <cstdint>
+
+typedef uint64_t ui64;
 
 using namespace DirectX;
 using namespace std;
@@ -240,7 +243,7 @@ void ClipPlaneShaderClass::ShutdownShader() {
 
 void ClipPlaneShaderClass::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND hwnd, WCHAR* shaderFilename) {
     char* compileErrors;
-    unsigned long long bufferSize, i;
+    ui64 bufferSize, i;
     ofstream fout;
 
 

@@ -1,4 +1,7 @@
 #include "D3DClass.hpp"
+#include <cstdint>
+
+typedef uint64_t ui64;
 
 using namespace DirectX;
 
@@ -28,7 +31,7 @@ bool D3DClass::Initialize(int screenWidth, int screenHeight, bool vsync, HWND hw
 	IDXGIAdapter* adapter;
 	IDXGIOutput* adapterOutput;
 	unsigned int numModes, i, numerator, denominator;
-	unsigned long long stringLength;
+	ui64 stringLength;
 	DXGI_MODE_DESC* displayModeList;
 	DXGI_ADAPTER_DESC adapterDesc;
 	int error;

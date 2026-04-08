@@ -1,4 +1,4 @@
-#include "RefractionShaderClass.hpp"
+#include "BlurShaderClass.hpp"
 #include <cstdint>
 
 typedef uint64_t ui64;
@@ -6,31 +6,32 @@ typedef uint64_t ui64;
 using namespace DirectX;
 using namespace std;
 
-RefractionShaderClass::RefractionShaderClass() {
+BlurShaderClass::BlurShaderClass() {
     m_vertexShader = nullptr;
     m_pixelShader = nullptr;
     m_layout = nullptr;
     m_matrixBuffer = nullptr;
     m_sampleState = nullptr;
-    m_lightBuffer = nullptr;
-    m_clipPlaneBuffer = nullptr;
+    m_screenBuffer = nullptr;
 }
 
-RefractionShaderClass::RefractionShaderClass(const RefractionShaderClass& other) {}
 
-RefractionShaderClass::~RefractionShaderClass() {}
+BlurShaderClass::BlurShaderClass(const BlurShaderClass& other) {}
 
-bool RefractionShaderClass::Initialize(ID3D11Device* device, HWND hwnd) {
-    bool result;
-    wchar_t vsFilename[128];
-    wchar_t psFilename[128];
+BlurShaderClass::~BlurShaderClass() {}
+
+
+bool BlurShaderClass::Initialize(ID3D11Device* device, HWND hwnd) {
+    wchar_t vsFilename[128], psFilename[128];
     int error;
-    error = wcscpy_s(vsFilename, 128, L"../DirectXEngine/refractionvs.hlsl");
+    bool result;
+
+    error = wcscpy_s(vsFilename, 128, L"../DirectXEngine/blurvs.hlsl");
     if (error != 0) {
         return false;
     }
 
-    error = wcscpy_s(psFilename, 128, L"../DirectXEngine/refractionps.hlsl");
+    error = wcscpy_s(psFilename, 128, L"../DirectXEngine/blurps.hlsl");
     if (error != 0) {
         return false;
     }
@@ -43,21 +44,22 @@ bool RefractionShaderClass::Initialize(ID3D11Device* device, HWND hwnd) {
     return true;
 }
 
-void RefractionShaderClass::Shutdown() {
+
+void BlurShaderClass::Shutdown() {
     ShutdownShader();
 
     return;
 }
 
-bool RefractionShaderClass::Render(ID3D11DeviceContext* deviceContext, int indexCount, XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix,
-    ID3D11ShaderResourceView* texture, XMFLOAT3 lightDirection, XMFLOAT4 ambientColor, XMFLOAT4 diffuseColor, XMFLOAT4 clipPlane) {
+bool BlurShaderClass::Render(ID3D11DeviceContext* deviceContext, int indexCount,
+    XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix,
+    ID3D11ShaderResourceView* texture, int screenWidth, int screenHeight, float blurType) {
     
     bool result;
 
 
-    result = SetShaderParameters(deviceContext,
-        worldMatrix, viewMatrix, projectionMatrix, texture,
-        lightDirection, ambientColor, diffuseColor, clipPlane);
+    result = SetShaderParameters(deviceContext, worldMatrix, viewMatrix, projectionMatrix,
+        texture, screenWidth, screenHeight, blurType);
     if (!result) {
         return false;
     }
@@ -68,24 +70,23 @@ bool RefractionShaderClass::Render(ID3D11DeviceContext* deviceContext, int index
 }
 
 
-bool RefractionShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, WCHAR* vsFilename, WCHAR* psFilename) {
+bool BlurShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, WCHAR* vsFilename, WCHAR* psFilename) {
     HRESULT result;
     ID3D10Blob* errorMessage;
     ID3D10Blob* vertexShaderBuffer;
     ID3D10Blob* pixelShaderBuffer;
-    D3D11_INPUT_ELEMENT_DESC polygonLayout[3];
+    D3D11_INPUT_ELEMENT_DESC polygonLayout[2];
     unsigned int numElements;
     D3D11_BUFFER_DESC matrixBufferDesc;
     D3D11_SAMPLER_DESC samplerDesc;
-    D3D11_BUFFER_DESC lightBufferDesc;
-    D3D11_BUFFER_DESC clipPlaneBufferDesc;
+    D3D11_BUFFER_DESC screenBufferDesc;
 
 
     errorMessage = nullptr;
     vertexShaderBuffer = nullptr;
     pixelShaderBuffer = nullptr;
 
-    result = D3DCompileFromFile(vsFilename, nullptr, nullptr, "RefractionVertexShader", "vs_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0,
+    result = D3DCompileFromFile(vsFilename, nullptr, nullptr, "BlurVertexShader", "vs_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0,
         &vertexShaderBuffer, &errorMessage);
     if (FAILED(result)) {
         if (errorMessage) {
@@ -98,7 +99,7 @@ bool RefractionShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, WC
         return false;
     }
 
-    result = D3DCompileFromFile(psFilename, nullptr, nullptr, "RefractionPixelShader", "ps_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0,
+    result = D3DCompileFromFile(psFilename, nullptr, nullptr, "BlurPixelShader", "ps_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0,
         &pixelShaderBuffer, &errorMessage);
     if (FAILED(result)) {
         if (errorMessage) {
@@ -113,13 +114,11 @@ bool RefractionShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, WC
 
     result = device->CreateVertexShader(vertexShaderBuffer->GetBufferPointer(), vertexShaderBuffer->GetBufferSize(),
         nullptr, &m_vertexShader);
-    if (FAILED(result))
-    {
+    if (FAILED(result)) {
         return false;
     }
 
-    result = device->CreatePixelShader(pixelShaderBuffer->GetBufferPointer(), pixelShaderBuffer->GetBufferSize(),
-        nullptr, &m_pixelShader);
+    result = device->CreatePixelShader(pixelShaderBuffer->GetBufferPointer(), pixelShaderBuffer->GetBufferSize(), nullptr, &m_pixelShader);
     if (FAILED(result)) {
         return false;
     }
@@ -139,14 +138,6 @@ bool RefractionShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, WC
     polygonLayout[1].AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
     polygonLayout[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
     polygonLayout[1].InstanceDataStepRate = 0;
-
-    polygonLayout[2].SemanticName = "NORMAL";
-    polygonLayout[2].SemanticIndex = 0;
-    polygonLayout[2].Format = DXGI_FORMAT_R32G32B32_FLOAT;
-    polygonLayout[2].InputSlot = 0;
-    polygonLayout[2].AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
-    polygonLayout[2].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-    polygonLayout[2].InstanceDataStepRate = 0;
 
     numElements = sizeof(polygonLayout) / sizeof(polygonLayout[0]);
 
@@ -193,27 +184,14 @@ bool RefractionShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, WC
         return false;
     }
 
-    // Note that ByteWidth always needs to be a multiple of 16 if using D3D11_BIND_CONSTANT_BUFFER or CreateBuffer will fail.
-    lightBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
-    lightBufferDesc.ByteWidth = sizeof(LightBufferType);
-    lightBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-    lightBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-    lightBufferDesc.MiscFlags = 0;
-    lightBufferDesc.StructureByteStride = 0;
+    screenBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+    screenBufferDesc.ByteWidth = sizeof(ScreenBufferType);
+    screenBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+    screenBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+    screenBufferDesc.MiscFlags = 0;
+    screenBufferDesc.StructureByteStride = 0;
 
-    result = device->CreateBuffer(&lightBufferDesc, nullptr, &m_lightBuffer);
-    if (FAILED(result)) {
-        return false;
-    }
-
-    clipPlaneBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
-    clipPlaneBufferDesc.ByteWidth = sizeof(ClipPlaneBufferType);
-    clipPlaneBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-    clipPlaneBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-    clipPlaneBufferDesc.MiscFlags = 0;
-    clipPlaneBufferDesc.StructureByteStride = 0;
-
-    result = device->CreateBuffer(&clipPlaneBufferDesc, nullptr, &m_clipPlaneBuffer);
+    result = device->CreateBuffer(&screenBufferDesc, nullptr, &m_screenBuffer);
     if (FAILED(result)) {
         return false;
     }
@@ -221,15 +199,10 @@ bool RefractionShaderClass::InitializeShader(ID3D11Device* device, HWND hwnd, WC
     return true;
 }
 
-void RefractionShaderClass::ShutdownShader() {
-    if (m_clipPlaneBuffer) {
-        m_clipPlaneBuffer->Release();
-        m_clipPlaneBuffer = nullptr;
-    }
-
-    if (m_lightBuffer) {
-        m_lightBuffer->Release();
-        m_lightBuffer = nullptr;
+void BlurShaderClass::ShutdownShader() {
+    if (m_screenBuffer) {
+        m_screenBuffer->Release();
+        m_screenBuffer = nullptr;
     }
 
     if (m_sampleState) {
@@ -260,7 +233,7 @@ void RefractionShaderClass::ShutdownShader() {
     return;
 }
 
-void RefractionShaderClass::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND hwnd, WCHAR* shaderFilename) {
+void BlurShaderClass::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND hwnd, WCHAR* shaderFilename) {
     char* compileErrors;
     ui64 bufferSize, i;
     ofstream fout;
@@ -286,15 +259,15 @@ void RefractionShaderClass::OutputShaderErrorMessage(ID3D10Blob* errorMessage, H
     return;
 }
 
-bool RefractionShaderClass::SetShaderParameters(ID3D11DeviceContext* deviceContext, XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix,
-    ID3D11ShaderResourceView* texture, XMFLOAT3 lightDirection, XMFLOAT4 ambientColor, XMFLOAT4 diffuseColor, XMFLOAT4 clipPlane) {
-
+bool BlurShaderClass::SetShaderParameters(ID3D11DeviceContext* deviceContext,
+    XMMATRIX worldMatrix, XMMATRIX viewMatrix, XMMATRIX projectionMatrix,
+    ID3D11ShaderResourceView* texture, int screenWidth, int screenHeight, float blurType) {
+    
     HRESULT result;
     D3D11_MAPPED_SUBRESOURCE mappedResource;
     MatrixBufferType* dataPtr;
     unsigned int bufferNumber;
-    ClipPlaneBufferType* dataPtr2;
-    LightBufferType* dataPtr3;
+    ScreenBufferType* dataPtr2;
 
 
     worldMatrix = XMMatrixTranspose(worldMatrix);
@@ -318,44 +291,30 @@ bool RefractionShaderClass::SetShaderParameters(ID3D11DeviceContext* deviceConte
 
     deviceContext->VSSetConstantBuffers(bufferNumber, 1, &m_matrixBuffer);
 
-    result = deviceContext->Map(m_clipPlaneBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-    if (FAILED(result)) {
-        return false;
-    }
-
-    dataPtr2 = static_cast <ClipPlaneBufferType*> (mappedResource.pData);
-
-    dataPtr2->clipPlane = clipPlane;
-
-    deviceContext->Unmap(m_clipPlaneBuffer, 0);
-
-    bufferNumber = 1;
-
-    deviceContext->VSSetConstantBuffers(bufferNumber, 1, &m_clipPlaneBuffer);
-
     deviceContext->PSSetShaderResources(0, 1, &texture);
 
-    result = deviceContext->Map(m_lightBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+    result = deviceContext->Map(m_screenBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
     if (FAILED(result)) {
         return false;
     }
 
-    dataPtr3 = static_cast <LightBufferType*> (mappedResource.pData);
+    dataPtr2 = static_cast <ScreenBufferType*> (mappedResource.pData);
 
-    dataPtr3->ambientColor = ambientColor;
-    dataPtr3->diffuseColor = diffuseColor;
-    dataPtr3->lightDirection = lightDirection;
+    dataPtr2->screenWidth = static_cast <float>(screenWidth);
+    dataPtr2->screenHeight = static_cast <float> (screenHeight);
+    dataPtr2->blurType = blurType;
+    dataPtr2->padding = 0.0f;
 
-    deviceContext->Unmap(m_lightBuffer, 0);
+    deviceContext->Unmap(m_screenBuffer, 0);
 
     bufferNumber = 0;
 
-    deviceContext->PSSetConstantBuffers(bufferNumber, 1, &m_lightBuffer);
+    deviceContext->PSSetConstantBuffers(bufferNumber, 1, &m_screenBuffer);
 
     return true;
 }
 
-void RefractionShaderClass::RenderShader(ID3D11DeviceContext* deviceContext, int indexCount) {
+void BlurShaderClass::RenderShader(ID3D11DeviceContext* deviceContext, int indexCount) {
     deviceContext->IASetInputLayout(m_layout);
 
     deviceContext->VSSetShader(m_vertexShader, nullptr, 0);
@@ -367,5 +326,3 @@ void RefractionShaderClass::RenderShader(ID3D11DeviceContext* deviceContext, int
 
     return;
 }
-
-
